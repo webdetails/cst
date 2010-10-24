@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf>
+    <title>Community Startup Tabs</title>
+    <author>Tolis + Webdetails</author>
+    <description>Defines what tabs to open on user login</description>
+    <icon/>
+    <template>template.html</template>
+    <style>clean</style>
+</cdf>

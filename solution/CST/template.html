@@ -1,0 +1,170 @@
+
+<style type="text/css">
+
+  .cstActionContainer{
+    position: relative;
+    z-index:100;
+    margin-top: 200px;
+    border: 1px solid #858383;
+    height: 50px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    background-color: #fff;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -opera-border-radius: 10px;
+    border-radius: 10px;
+    vertical-align: middle;
+
+  }
+
+  .cstActionContainer > div{
+    display: inline-block;
+    float: left;
+    height: 30px;
+  }
+
+
+  #cstLogo{
+    border-right: 1px solid #858383;
+    padding: 10px;
+    width: 50px;
+    text-align: center;
+
+  }
+
+  #cstAction{
+    vertical-align: bottom;
+    color: #858383;
+    text-align: center;
+    padding: 10px;
+    padding-top: 15px;
+    font-size: 14px;
+    width: 300px;
+    font-family:"DejaVu Sans","Miriad Pro","Helvetica", "Arial", "sans serif";
+  }
+
+
+  #cstLine1, #cstLine2{
+    position: absolute;
+    height: 20px;
+    top: 235px;
+    border-top:1px solid #858383;
+    z-index: 1;
+
+  }
+
+  #cstWD{
+    position: absolute;
+    height: 30px;
+    top: 250px;
+    width: 100%;
+    z-index: 2;
+    text-align: right;
+    display: none;
+  }
+
+  #cstLine1{
+    width: 0;
+    left: 0%;
+  }
+
+  #cstLine2{
+    width: 0;
+    left: 100%;
+  }
+
+
+</style>
+
+
+<div class="cstActionContainer">
+  <div id="cstLogo"><img alt="Logo" border="0" src="GetCDFResource?resource=/CST/cstLogo.png">
+  </div>
+  <div id="cstAction">
+    Loading user preferences
+  </div>
+</div>
+<div id="cstLine1"></div>
+<div id="cstLine2"></div>
+<div id="cstWD"><img src="GetCDFResource?resource=/CST/imginedbyWD.png" /></div>
+
+
+
+<script language="javascript" type="text/javascript">
+
+
+  var cst = Base.extend({
+    clazz: "cstAction",
+    ph: null,
+    tabs: [],
+
+    init: function(){
+
+      // init
+      //Dashboards.log("Initializing engine");
+      this.ph = $("#"+this.clazz);
+      //this.ph.text("Opening user tabs")
+
+    },
+
+
+    openTabs: function(){
+
+      $.each(this.tabs,function(i,tab){
+        parent.mantle_openTab(tab[0], tab[0],tab[1])
+        //Dashboards.log("Opening user settings " + tab)
+      })
+
+    },
+
+    loadTabs: function(){
+      var myself=this;
+      //Dashboards.log("Calling cst json");
+      $.ajax({
+        url: "../../ViewAction",
+        data:{solution: "CST", path:'', action: "cst.xaction"},
+        success: function(tabs){
+          myself.tabs = tabs;
+          myself.processAndClose();
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+          //Dashboards.log("Error found, closing anyway. (" + textStatus + "): " + errorThrown);
+          myself.tabs=[];
+          myself.processAndClose();
+        },
+        dataType: 'json'
+      })
+
+    },
+
+    processAndClose: function(){
+      //Dashboards.log("Closing");
+      var myself=this;
+      $("#cstLine1").animate({left: "0%", width:"50%" },3000)
+      $("#cstLine2").animate({left: "50%", width:"50%" },3000)
+      setTimeout(function(){
+        $("#cstWD").fadeIn(1000);
+        setTimeout(function(){
+          myself.openTabs();
+          parent.closeTab(window.location.href)
+        },1000)
+      }, 1000)
+    }
+
+  });
+
+
+
+  //  Startup rules:
+
+  $(function(){
+    var engine = new cst();
+    engine.init();
+    engine.loadTabs();
+
+  })
+
+</script>

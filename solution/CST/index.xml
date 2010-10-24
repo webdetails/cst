@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<index>
+    <name>CST</name>
+    <description>Community Startup Tabs</description>
+    <icon>reporting.png</icon>
+    <visible>true</visible>
+    <display-type>list</display-type>
+</index>

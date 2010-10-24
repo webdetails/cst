@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-sequence>
+  <title>%title</title>
+  <version>1</version>
+  <logging-level>ERROR</logging-level>
+  <documentation>
+    <author>Pedro Alves</author>
+    <description>CST kettle rules</description>
+    <help/>
+    <result-type>none</result-type>
+    <icon/>
+  </documentation>
+  <inputs>
+    <principalName type="string">
+      <sources>
+        <security>principalName</security>
+      </sources>
+    </principalName>
+    <principalRoles type="string-list">
+      <sources>
+        <security>principalRoles</security>
+      </sources>
+    </principalRoles>
+
+  </inputs>
+  <outputs>
+        <!--outRows type="result-set"/-->
+    <json type="string">
+      <destinations>
+        <response>content</response>
+      </destinations>
+    </json>
+  </outputs>
+  <resources>
+    <transformation-file>
+      <solution-file>
+        <location>cst.ktr</location>
+        <mime-type>text/plain</mime-type>
+      </solution-file>
+    </transformation-file>
+  </resources>
+  <actions>
+    <action-definition>
+      <component-name>KettleComponent</component-name>
+      <action-type>Pentaho Data Integration</action-type>
+      <action-resources>
+        <transformation-file type="resource"/>
+      </action-resources>
+      <action-inputs>
+        <PARAMETER1 type="string" mapping="principalName"/>
+        <PARAMETER2 type="string-list" mapping="principalRoles"/>
+      </action-inputs>
+      <action-outputs>
+        <kettle-execution-log type="string" mapping="execLog"/>
+        <kettle-execution-status type="string" mapping="execStatus"/>
+        <transformation-output-rows type="result-set" mapping="outRows"/>
+        <transformation-output-rows-count type="integer" mapping="outRowsCount"/>
+      </action-outputs>
+      <component-definition>
+        <monitor-step>OUTPUT</monitor-step>
+      </component-definition>
+    </action-definition>
+
+    <action-definition>
+      <component-name>JavascriptRule</component-name>
+      <action-type>Format results</action-type>
+      <action-inputs>
+        <query_result type="result-set" mapping="outRows"/>
+        <user type="string" mapping="principalName"/>
+        <roles type="string-list" mapping="principalRoles"/>
+      </action-inputs>
+      <action-outputs>
+        <json type="string"/>
+      </action-outputs>
+      <component-definition>
+        <script><![CDATA[
+
+				out.println(" CST Process (user: " + user + ", roles: " + roles + ")");
+
+				var json="";
+
+				if (query_result != null)
+				{
+
+					var rsmd = query_result.getMetaData() ;
+					var colHeaders = rsmd.getColumnHeaders() ;
+					var rowHeaders = rsmd.getRowHeaders() ;
+					var colCount = rsmd.getColumnCount() ;
+					var rowCount = query_result.getRowCount() ;
+
+
+					var arr = [];
+
+				for(i = 0; i < rowCount; i++){
+
+				var id = query_result.getValueAt(i,0);
+				var name = query_result.getValueAt(i,1);
+				arr.push("[ \"" + id + "\", \""+ name + "\"]");
+
+
+				}
+				json = "[" + arr.join(',') +"]";
+				}
+				else{
+				json="[]";
+				}
+				json;
+
+
+						]]>
+        </script>
+      </component-definition>
+    </action-definition>
+  </actions>
+</action-sequence>
