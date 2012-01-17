@@ -95,7 +95,8 @@
 
 				var id = query_result.getValueAt(i,0);
 				var name = query_result.getValueAt(i,1);
-				arr.push("[ \"" + id + "\", \""+ name + "\"]");
+				var fullScreen = query_result.getValueAt(i,2);
+				arr.push("[ \"" + id + "\", \""+ name + "\", "+ fullScreen + "]");
 
 
 				}

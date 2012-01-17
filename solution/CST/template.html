@@ -114,7 +114,12 @@
     openTabs: function(){
 
       $.each(this.tabs,function(i,tab){
-        parent.mantle_openTab(tab[0], tab[0],tab[1])
+        if (tab[2]) {
+          //Dashboards.log("Loading tab in this window: " + tab[1])
+          parent.location.replace(tab[1])
+        } else {
+          parent.mantle_openTab(tab[0], tab[0],tab[1])
+        }
         //Dashboards.log("Opening user settings " + tab)
       })
 

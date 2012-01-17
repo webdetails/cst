@@ -79,7 +79,7 @@
   <notepads>
   </notepads>
   <order>
-  <hop> <from>regexp?</from><to>Check if user is equal</to><enabled>Y</enabled> </hop>  <hop> <from>Check if user is equal</from><to>Clean stream</to><enabled>Y</enabled> </hop>  <hop> <from>Split field to rows</from><to>Role</to><enabled>Y</enabled> </hop>  <hop> <from>Role</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Clean stream</from><to>Sort rows</to><enabled>Y</enabled> </hop>  <hop> <from>Clean stream 2</from><to>Sort rows</to><enabled>Y</enabled> </hop>  <hop> <from>Default order</from><to>NVL order</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows</from><to>Remove order</to><enabled>Y</enabled> </hop>  <hop> <from>User</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Get data from XML</from><to>Default</to><enabled>Y</enabled> </hop>  <hop> <from>Default</from><to>Default order</to><enabled>Y</enabled> </hop>  <hop> <from>Default</from><to>Default stream</to><enabled>Y</enabled> </hop>  <hop> <from>Get Role</from><to>Substr</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Clean stream 2</to><enabled>Y</enabled> </hop>  <hop> <from>NVL order</from><to>matchType</to><enabled>Y</enabled> </hop>  <hop> <from>matchType</from><to>Get User</to><enabled>Y</enabled> </hop>  <hop> <from>matchType</from><to>Get Role</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Dummy</to><enabled>Y</enabled> </hop>  <hop> <from>Remove order</from><to>OUTPUT</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing)</from><to>regexp?</to><enabled>Y</enabled> </hop>  <hop> <from>regexp?</from><to>Pattern regexp</to><enabled>Y</enabled> </hop>  <hop> <from>Pattern regexp</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Detect empty stream</from><to>rename empty fields</to><enabled>Y</enabled> </hop>  <hop> <from>Join</from><to>Clean stream 3</to><enabled>Y</enabled> </hop>  <hop> <from>rename empty fields</from><to>Join</to><enabled>Y</enabled> </hop>  <hop> <from>Default stream</from><to>Join</to><enabled>Y</enabled> </hop>  <hop> <from>Remove order</from><to>Detect empty stream</to><enabled>Y</enabled> </hop>  <hop> <from>Clean stream 3</from><to>OUTPUT</to><enabled>Y</enabled> </hop>  <hop> <from>Get User</from><to>User</to><enabled>Y</enabled> </hop>  <hop> <from>Substr</from><to>Split field to rows</to><enabled>Y</enabled> </hop>  </order>
+  <hop> <from>regexp?</from><to>Check if user is equal</to><enabled>Y</enabled> </hop>  <hop> <from>Check if user is equal</from><to>Clean stream</to><enabled>Y</enabled> </hop>  <hop> <from>Split field to rows</from><to>Role</to><enabled>Y</enabled> </hop>  <hop> <from>Role</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Clean stream</from><to>Sort rows</to><enabled>Y</enabled> </hop>  <hop> <from>Clean stream 2</from><to>Sort rows</to><enabled>Y</enabled> </hop>  <hop> <from>Default order</from><to>NVL order</to><enabled>Y</enabled> </hop>  <hop> <from>Sort rows</from><to>Remove order</to><enabled>Y</enabled> </hop>  <hop> <from>User</from><to>Dummy (do nothing)</to><enabled>Y</enabled> </hop>  <hop> <from>Default</from><to>Default order</to><enabled>Y</enabled> </hop>  <hop> <from>Default</from><to>Default stream</to><enabled>Y</enabled> </hop>  <hop> <from>Get Role</from><to>Substr</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Clean stream 2</to><enabled>Y</enabled> </hop>  <hop> <from>NVL order</from><to>matchType</to><enabled>Y</enabled> </hop>  <hop> <from>matchType</from><to>Get User</to><enabled>Y</enabled> </hop>  <hop> <from>matchType</from><to>Get Role</to><enabled>Y</enabled> </hop>  <hop> <from>Filter rows</from><to>Dummy</to><enabled>Y</enabled> </hop>  <hop> <from>Dummy (do nothing)</from><to>regexp?</to><enabled>Y</enabled> </hop>  <hop> <from>regexp?</from><to>Pattern regexp</to><enabled>Y</enabled> </hop>  <hop> <from>Pattern regexp</from><to>Filter rows</to><enabled>Y</enabled> </hop>  <hop> <from>Detect empty stream</from><to>rename empty fields</to><enabled>Y</enabled> </hop>  <hop> <from>Join</from><to>Clean stream 3</to><enabled>Y</enabled> </hop>  <hop> <from>rename empty fields</from><to>Join</to><enabled>Y</enabled> </hop>  <hop> <from>Default stream</from><to>Join</to><enabled>Y</enabled> </hop>  <hop> <from>Remove order</from><to>Detect empty stream</to><enabled>Y</enabled> </hop>  <hop> <from>Get User</from><to>User</to><enabled>Y</enabled> </hop>  <hop> <from>Substr</from><to>Split field to rows</to><enabled>Y</enabled> </hop>  <hop> <from>Check if user is equal</from><to>Dummy 2</to><enabled>Y</enabled> </hop>  <hop> <from>Remove order</from><to>OUTPUT</to><enabled>Y</enabled> </hop>  <hop> <from>Clean stream 3</from><to>OUTPUT</to><enabled>Y</enabled> </hop>  <hop> <from>Get data from XML</from><to>Default fullScreen</to><enabled>Y</enabled> </hop>  <hop> <from>Default fullScreen</from><to>NVL fullScreen</to><enabled>Y</enabled> </hop>  <hop> <from>NVL fullScreen</from><to>Default</to><enabled>Y</enabled> </hop>  </order>
   <step>
     <name>Check if user is equal</name>
     <type>FilterRows</type>
@@ -90,8 +90,8 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to/>
-<send_false_to/>
+<send_true_to>Clean stream</send_true_to>
+<send_false_to>Dummy 2</send_false_to>
     <compare>
 <condition>
  <negated>N</negated>
@@ -102,8 +102,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>719</xloc>
-      <yloc>245</yloc>
+      <xloc>758</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -130,11 +130,15 @@
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>fullScreen</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>520</xloc>
-      <yloc>245</yloc>
+      <xloc>559</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -161,11 +165,15 @@
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>fullScreen</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>608</xloc>
-      <yloc>332</yloc>
+      <xloc>647</xloc>
+      <yloc>447</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -188,11 +196,15 @@
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>fullScreen</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>115</xloc>
-      <yloc>332</yloc>
+      <xloc>154</xloc>
+      <yloc>447</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -219,8 +231,39 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>115</xloc>
-      <yloc>36</yloc>
+      <xloc>154</xloc>
+      <yloc>151</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Default fullScreen</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>fullScreenDefault</name>
+        <type>Boolean</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>N</nullif>
+        <length>0</length>
+        <precision>0</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>154</xloc>
+      <yloc>33</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -250,8 +293,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>210</xloc>
-      <yloc>36</yloc>
+      <xloc>249</xloc>
+      <yloc>151</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -268,8 +311,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>115</xloc>
-      <yloc>143</yloc>
+      <xloc>154</xloc>
+      <yloc>258</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -286,8 +329,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>398</xloc>
-      <yloc>245</yloc>
+      <xloc>437</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -304,8 +347,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>719</xloc>
-      <yloc>409</yloc>
+      <xloc>758</xloc>
+      <yloc>524</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -322,8 +365,26 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>819</xloc>
-      <yloc>143</yloc>
+      <xloc>858</xloc>
+      <yloc>258</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy 2</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>654</xloc>
+      <yloc>313</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -350,8 +411,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>719</xloc>
-      <yloc>332</yloc>
+      <xloc>758</xloc>
+      <yloc>447</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -360,7 +421,7 @@
     <name>Get Role</name>
     <type>SystemInfo</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
@@ -378,8 +439,8 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>520</xloc>
-      <yloc>36</yloc>
+      <xloc>559</xloc>
+      <yloc>151</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -402,8 +463,8 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>615</xloc>
-      <yloc>143</yloc>
+      <xloc>654</xloc>
+      <yloc>258</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -434,6 +495,7 @@
     <file>
       <name>${Internal.Transformation.Filename.Directory}&#47;cst-config.xml</name>
       <filemask/>
+      <exclude_filemask/>
       <file_required>N</file_required>
       <include_subfolders>N</include_subfolders>
     </file>
@@ -442,6 +504,7 @@
         <name>tabName</name>
         <xpath>@title</xpath>
         <element_type>node</element_type>
+        <result_type>valueof</result_type>
         <type>String</type>
         <format/>
         <currency/>
@@ -456,6 +519,7 @@
         <name>tabUrl</name>
         <xpath>.</xpath>
         <element_type>node</element_type>
+        <result_type>valueof</result_type>
         <type>String</type>
         <format/>
         <currency/>
@@ -470,6 +534,7 @@
         <name>matchType</name>
         <xpath>..&#47;@match</xpath>
         <element_type>node</element_type>
+        <result_type>valueof</result_type>
         <type>String</type>
         <format/>
         <currency/>
@@ -484,6 +549,7 @@
         <name>pattern</name>
         <xpath>..&#47;@pattern</xpath>
         <element_type>node</element_type>
+        <result_type>valueof</result_type>
         <type>Boolean</type>
         <format/>
         <currency/>
@@ -498,6 +564,7 @@
         <name>value</name>
         <xpath>..&#47;@value</xpath>
         <element_type>node</element_type>
+        <result_type>valueof</result_type>
         <type>String</type>
         <format/>
         <currency/>
@@ -512,7 +579,23 @@
         <name>orderXml</name>
         <xpath>@order</xpath>
         <element_type>node</element_type>
+        <result_type>valueof</result_type>
         <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>fullScreenXml</name>
+        <xpath>@fullScreen</xpath>
+        <element_type>node</element_type>
+        <result_type>valueof</result_type>
+        <type>Boolean</type>
         <format/>
         <currency/>
         <decimal/>
@@ -529,6 +612,14 @@
     <IsAFile>N</IsAFile>
     <XmlField/>
     <prunePath/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>28</xloc>
@@ -561,8 +652,40 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>115</xloc>
-      <yloc>245</yloc>
+      <xloc>154</xloc>
+      <yloc>360</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>NVL fullScreen</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>fullScreen</field_name>
+<calc_type>NVL</calc_type>
+<field_a>fullScreenXml</field_a>
+<field_b>fullScreenDefault</field_b>
+<field_c/>
+<value_type>Boolean</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>154</xloc>
+      <yloc>92</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -593,8 +716,8 @@
 </calculation>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>210</xloc>
-      <yloc>143</yloc>
+      <xloc>249</xloc>
+      <yloc>258</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -611,8 +734,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>210</xloc>
-      <yloc>332</yloc>
+      <xloc>294</xloc>
+      <yloc>565</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -643,8 +766,8 @@ matches = comparision.match(value)!=null;
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>819</xloc>
-      <yloc>332</yloc>
+      <xloc>858</xloc>
+      <yloc>447</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -663,8 +786,8 @@ matches = comparision.match(value)!=null;
       <remove>        <name>order</name>
       </remove>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>398</xloc>
-      <yloc>332</yloc>
+      <xloc>436</xloc>
+      <yloc>447</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -703,11 +826,15 @@ matches = comparision.match(value)!=null;
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>fullScreen</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>819</xloc>
-      <yloc>36</yloc>
+      <xloc>858</xloc>
+      <yloc>151</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -748,8 +875,8 @@ matches = comparision.match(value)!=null;
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>520</xloc>
-      <yloc>332</yloc>
+      <xloc>559</xloc>
+      <yloc>447</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -772,8 +899,8 @@ matches = comparision.match(value)!=null;
    <resetrownumber>N</resetrownumber>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>719</xloc>
-      <yloc>36</yloc>
+      <xloc>758</xloc>
+      <yloc>151</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -797,8 +924,8 @@ matches = comparision.match(value)!=null;
 </formula>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>613</xloc>
-      <yloc>36</yloc>
+      <xloc>652</xloc>
+      <yloc>151</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -837,11 +964,15 @@ matches = comparision.match(value)!=null;
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>fullScreen</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>718</xloc>
-      <yloc>143</yloc>
+      <xloc>757</xloc>
+      <yloc>258</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -868,8 +999,8 @@ matches = comparision.match(value)!=null;
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>520</xloc>
-      <yloc>143</yloc>
+      <xloc>559</xloc>
+      <yloc>258</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -896,8 +1027,8 @@ matches = comparision.match(value)!=null;
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>819</xloc>
-      <yloc>245</yloc>
+      <xloc>858</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -920,11 +1051,15 @@ matches = comparision.match(value)!=null;
         <rename>tabUrl_empty</rename>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>fullScreen</name>
+        <rename>fullScreen_empty</rename>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>210</xloc>
-      <yloc>245</yloc>
+      <xloc>249</xloc>
+      <yloc>360</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
