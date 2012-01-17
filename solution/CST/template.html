@@ -113,10 +113,15 @@
 
     openTabs: function(){
 
+      var numTabs = this.tabs.length;
       $.each(this.tabs,function(i,tab){
         if (tab[2]) {
           //Dashboards.log("Loading tab in this window: " + tab[1])
-          parent.location.replace(tab[1])
+          if (numTabs == 1) {
+            parent.location.replace(tab[1]);
+          } else {
+            window.open(tab[1], tab[0]);
+          }
         } else {
           parent.mantle_openTab(tab[0], tab[0],tab[1])
         }
