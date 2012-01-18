@@ -153,6 +153,16 @@
     processAndClose: function(){
       //Dashboards.log("Closing");
       var myself=this;
+      var timeout = 1000;
+      if (0 == myself.tabs.length) {
+        timeout = 0;
+      }
+      $.each(myself.tabs, function(i, tab) {
+        // if there are any fullscreen tabs, open them quickly
+        if (tab[2]) {
+          timeout = 0;
+        }
+      });
       $("#cstLine1").animate({left: "0%", width:"50%" },3000)
       $("#cstLine2").animate({left: "50%", width:"50%" },3000)
       setTimeout(function(){
@@ -160,8 +170,8 @@
         setTimeout(function(){
           myself.openTabs();
           parent.closeTab(window.location.href)
-        },1000)
-      }, 1000)
+        }, timeout)
+      },  timeout)
     }
 
   });
