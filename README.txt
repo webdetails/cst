@@ -18,3 +18,6 @@ startup-url-1=/pentaho/content/pentaho-cdf/RenderXCDF?solution=CST&path=%2F&acti
 startup-name-1=CST
 
 
+Optionally, replace tomcat/webapps/pentaho/jsp/PUCLogin.jsp with the included
+version.  If a user has a single fullScreen tab configured, they will be
+redirected directly from the login screen, bypassing the PUC screen.
