@@ -4,7 +4,7 @@
     <tab title="Pivot"><![CDATA[/pentaho/Pivot?solution=steel-wheels&path=analysis&action=analysis_customers.analysisview.xaction]]></tab>
   </rule>
   <rule match="ROLE" pattern="false" value="ceo">
-    <tab title="CDF" order="1" fullScreen="true"><![CDATA[/pentaho/content/pentaho-cdf/RenderXCDF?solution=bi-developers&path=/cdf-samples/10-cdf&action=information_dashboard.xcdf&template=mantle]]></tab>
+    <tab title="CDF" order="1" fullScreen="true"><![CDATA[/pentaho/content/pentaho-cdf/RenderXCDF?solution=plugin-samples&path=/pentaho-cdf/10-cdf&action=information_dashboard.xcdf&template=mantle]]></tab>
   </rule>
   <rule match="ROLE" pattern="false" value="Admin">
     <tab title="Dashboard">/pentaho/PreviousHome</tab>
