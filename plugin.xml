@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin title="cst" loader="DEFAULT">
-<overlays>
+<!--<overlays>
 		<overlay id="startup.cst" resourcebundle="content/cst/resources/lang/messages">
 			<menubar id="toolsmenu">
 	        	<menuitem id="cst" label="${Launcher.cst}" command="mantleXulHandler.openUrl('${Launcher.cst}','${Launcher.cst_TOOLTIP}','plugin/cst/api/default')"/>
 	      	</menubar>
 	    </overlay>
-	</overlays>
+	</overlays>-->
 	<lifecycle-listener class="pt.webdetails.cpk.CpkLifecycleListener"/>
 	<static-paths>
 		<static-path url="/cst/static" localFolder="static"/>
