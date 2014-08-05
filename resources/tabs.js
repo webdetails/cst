@@ -4,8 +4,6 @@ $(window).load(function(){
   var callback = function(args) {
     setTimeout(function(){
       fetchAndOpenTabs();
-
-      window.top.mantle_setPerspective('opened.perspective');
     }, 3000);
   };
 
@@ -23,7 +21,7 @@ $(window).load(function(){
     var tabs;
     $.ajax({
       type: "GET",
-      url: CONTEXT_PATH + "plugin/cst/api/readConfig?paramuserName=" + escape(SESSION_NAME),
+      url: CONTEXT_PATH + "plugin/cst/api/readConfig",
       dataType: "json",
       success: function(data){
         if(data.resultset){
@@ -44,4 +42,3 @@ $(window).load(function(){
     });
   };
 });
-

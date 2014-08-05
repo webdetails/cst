@@ -148,7 +148,6 @@
   <hop> <from>If ROLE Tab</from><to>Get Roles</to><enabled>Y</enabled> </hop>
   <hop> <from>Get Roles</from><to>Split field to rows</to><enabled>Y</enabled> </hop>
   <hop> <from>Split field to rows</from><to>Select values</to><enabled>Y</enabled> </hop>
-  <hop> <from>Select values</from><to>Grouped ROLE &#x26; USER</to><enabled>Y</enabled> </hop>
   <hop> <from>Remove Comparator</from><to>Add priority 2</to><enabled>Y</enabled> </hop>
   <hop> <from>If DEFAULT Tab</from><to>Add priority 3</to><enabled>Y</enabled> </hop>
   <hop> <from>Add priority 2</from><to>Sort by order and tab name</to><enabled>Y</enabled> </hop>
@@ -156,7 +155,74 @@
   <hop> <from>Sort by order and tab name</from><to>Get minimum priority</to><enabled>Y</enabled> </hop>
   <hop> <from>Get minimum priority</from><to>Filter rows</to><enabled>Y</enabled> </hop>
   <hop> <from>Filter rows</from><to>Clean output</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values</from><to>Grouped ROLE &#x26; USER</to><enabled>Y</enabled> </hop>
   </order>
+  <step>
+    <name>Add priority 2</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>priority</name>
+        <type>Number</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>2</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1152</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Add priority 3</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>priority</name>
+        <type>Number</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>3</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>256</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Clean output</name>
     <type>SelectValues</type>
@@ -281,6 +347,68 @@
     </step>
 
   <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to/>
+<send_false_to/>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>priority</leftvalue>
+ <function>&#x3d;</function>
+ <rightvalue>minPriority</rightvalue>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>736</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Roles</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>comparatorArray</name>
+        <variable>&#x24;&#x7b;cpk.session.roles&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>448</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Get UserName</name>
     <type>GetVariable</type>
     <description/>
@@ -309,6 +437,43 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>480</xloc>
       <yloc>224</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get minimum priority</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <all_rows>Y</all_rows>
+      <ignore_aggregate>N</ignore_aggregate>
+      <field_ignore/>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>grp</prefix>
+      <add_linenr>N</add_linenr>
+      <linenr_fieldname/>
+      <give_back_row>N</give_back_row>
+      <group>
+      </group>
+      <fields>
+        <field>
+          <aggregate>minPriority</aggregate>
+          <subject>priority</subject>
+          <type>MIN</type>
+          <valuefield/>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>736</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -826,7 +991,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var splittedRoles &#x3d; comparator.split&#x28;&#x22;&#x7e;&#x22;&#x29;&#x3b;&#xa;var result &#x3d; false&#x3b;&#xa;for&#x28;var i &#x3d; 0&#x3b; i &#x3c; splittedRoles.length&#x3b; i&#x2b;&#x2b;&#x29;&#x7b;&#xa;	if&#x28;decodeURIComponent&#x28;splittedRoles&#x5b;i&#x5d;&#x29;.match&#x28;matchValue&#x29;&#x29;&#x7b;&#xa;		result &#x3d; true&#x3b;&#xa;	&#x7d;&#xa;&#x7d;&#xa;regexMatched &#x3d; result&#x3b;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var splittedRoles &#x3d; comparator.split&#x28;&#x22;,&#x22;&#x29;&#x3b;&#xa;var result &#x3d; false&#x3b;&#xa;for&#x28;var i &#x3d; 0&#x3b; i &#x3c; splittedRoles.length&#x3b; i&#x2b;&#x2b;&#x29;&#x7b;&#xa;	if&#x28;splittedRoles&#x5b;i&#x5d;.match&#x28;matchValue&#x29;&#x29;&#x7b;&#xa;		result &#x3d; true&#x3b;&#xa;	&#x7d;&#xa;&#x7d;&#xa;regexMatched &#x3d; result&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>regexMatched</name>
         <rename>regexMatched</rename>
         <type>Boolean</type>
@@ -856,7 +1021,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var splittedRoles &#x3d; comparator.split&#x28;&#x22;&#x7e;&#x22;&#x29;&#x3b;&#xa;var result &#x3d; false&#x3b;&#xa;for&#x28;var i &#x3d; 0&#x3b; i &#x3c; splittedRoles.length&#x3b; i&#x2b;&#x2b;&#x29;&#x7b;&#xa;	if&#x28;decodeURIComponent&#x28;splittedRoles&#x5b;i&#x5d;&#x29; &#x3d;&#x3d; matchValue&#x29;&#x7b;&#xa;		result &#x3d; true&#x3b;&#xa;	&#x7d;&#xa;&#x7d;&#xa;matched &#x3d; result&#x3b;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var splittedRoles &#x3d; comparator.split&#x28;&#x22;,&#x22;&#x29;&#x3b;&#xa;var result &#x3d; false&#x3b;&#xa;for&#x28;var i &#x3d; 0&#x3b; i &#x3c; splittedRoles.length&#x3b; i&#x2b;&#x2b;&#x29;&#x7b;&#xa;	if&#x28;splittedRoles&#x5b;i&#x5d; &#x3d;&#x3d; matchValue&#x29;&#x7b;&#xa;		result &#x3d; true&#x3b;&#xa;	&#x7d;&#xa;&#x7d;&#xa;matched &#x3d; result&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>matched</name>
         <rename>matched</rename>
         <type>Boolean</type>
@@ -867,6 +1032,27 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>864</xloc>
       <yloc>224</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>comparatorArray</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>640</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -924,58 +1110,6 @@
     </step>
 
   <step>
-    <name>if USER Tab</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>352</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get Roles</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>comparatorArray</name>
-        <variable>&#x24;&#x7b;cpk.session.roles&#x7d;</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>448</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Split field to rows</name>
     <type>SplitFieldToRows3</type>
     <description/>
@@ -1002,8 +1136,8 @@
     </step>
 
   <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
+    <name>if USER Tab</name>
+    <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1012,144 +1146,10 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>        <select_unspecified>N</select_unspecified>
-      <remove>        <name>comparatorArray</name>
-      </remove>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>640</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Add priority 2</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>priority</name>
-        <type>Number</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>2</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1152</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Add priority 3</name>
-    <type>Constant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>priority</name>
-        <type>Number</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>3</nullif>
-        <length>-1</length>
-        <precision>-1</precision>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>256</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get minimum priority</name>
-    <type>GroupBy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <all_rows>Y</all_rows>
-      <ignore_aggregate>N</ignore_aggregate>
-      <field_ignore/>
-      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
-      <prefix>grp</prefix>
-      <add_linenr>N</add_linenr>
-      <linenr_fieldname/>
-      <give_back_row>N</give_back_row>
-      <group>
-      </group>
-      <fields>
-        <field>
-          <aggregate>minPriority</aggregate>
-          <subject>priority</subject>
-          <type>MIN</type>
-          <valuefield/>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>736</xloc>
-      <yloc>416</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<send_true_to/>
-<send_false_to/>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>priority</leftvalue>
- <function>&#x3d;</function>
- <rightvalue>minPriority</rightvalue>
- </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>736</xloc>
-      <yloc>480</yloc>
+      <xloc>352</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
