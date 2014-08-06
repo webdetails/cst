@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf>
+        <author></author>
+        <description>Clean Dashboard</description>
+        <icon></icon>
+        <rendererType>blueprint</rendererType>
+        <title>main</title>
+        <widget>false</widget>
+        <style>Clean</style>
+</cdf>
