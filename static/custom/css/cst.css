@@ -238,17 +238,62 @@ tr.odd td.sorting_1 {
   width: 160px;
   margin: 10px auto;
 }
-
+.refreshRow{
+  position: relative;
+}
 .refreshButton {
+  position: absolute;
+  right: 88px;
+  top: 40px;
 }
 .refreshButton button{
-  height:34px;
-  width:34px;
-  background: url('../img/refresh.png') -4px 50% no-repeat;
-  float:right;
+  background: #007297; /* Old browsers */
+  background: -moz-linear-gradient(top,  #007297 57%, #005f7d 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(57%,#007297), color-stop(100%,#005f7d)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #007297 57%,#005f7d 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #007297 57%,#005f7d 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #007297 57%,#005f7d 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #007297 57%,#005f7d 100%); /* W3C */
+  height: 30px;
+  width: 30px;
+  float: right;
+  border-radius: 3px;
+  box-shadow:         0px 2px 2px rgba(0, 0, 0, 0.3);
+  border: none;
+  outline: 0;
+}
+.refreshButton button:after {
+  height: 30px;
+  width: 30px;
+  background-image: url('../img/refresh.svg');
+  background-position: 0 0;
+  background-repeat: no-repeat;  
+  position: absolute;
+  left:0;
+  top:0;
+  content: '';
+}
+.no-svg .refreshButton button:after {
+  background-image: url('../img/refresh.png');
 }
 .refreshButton button:hover{
-  background-position: -39px 50%;
+  -moz-box-shadow:    inset 0 0 1px #FFF;
+  -webkit-box-shadow: inset 0 0 1px #FFF;
+  box-shadow:         inset 0 0 1px #FFF;
+  background: #0085b0; /* Old browsers */
+}
+.refreshButton button:active {
+  background: #8ac06e; /* Old browsers */
+  background: -moz-linear-gradient(top,  #8ac06e 0%, #62ab3d 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ac06e), color-stop(100%,#62ab3d)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #8ac06e 0%,#62ab3d 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #8ac06e 0%,#62ab3d 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #8ac06e 0%,#62ab3d 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #8ac06e 0%,#62ab3d 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8ac06e', endColorstr='#62ab3d',GradientType=0 ); /* IE6-9 */
+}
+.refreshButton button:active:after {
+  background-position: -30px 0;
 }
 
 .aceEditorWrapper{
@@ -654,22 +699,47 @@ button {
   display:none;
 }
 
-.cstMainHeader{
+.cstMainHeader {
   padding-top: 30px;
-	background: #ffffff;
-	font-size: 26px;
-	text-align: left;
-	color: #1974bd;
-	font-family: 'Open Sans Light';
+  background: #ffffff;
+  text-align: left;
   position: relative;
   margin-bottom: 52px;
+  font-family: 'Open Sans Light';
+}
+
+.cstMainHeader .title {
+  font-size: 26px;
+  color: #005ca7;
+  cursor: default;
+}
+
+.cstMainHeader .aboutLink {
+  font-size: 14px;
+  padding-top: 10px;
+  text-align: right;
+}
+
+.cstMainHeader .aboutLink a,
+.cstMainHeader .aboutLink a:link,
+.cstMainHeader .aboutLink a:visited,
+.cstMainHeader .aboutLink a:hover,
+.cstMainHeader .aboutLink a:active {
+  color: #005ca7;
+  text-decoration:  none;
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.cstMainHeader .aboutLink a:hover,
+.cstMainHeader .aboutLink a:active {
+  text-decoration:  underline;
 }
 
 .cstMainHeader:after{
 	content: '';  
-	width: 140px;
+	width: 100px;
 	height: 3px;
-	background: #ffd000;
+	background: #EECA14;
   bottom: -43px;
   position: absolute;
 
@@ -683,6 +753,36 @@ button {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.descriptionObj p {
+  font-family: 'Open Sans Light';
+  font-size: 13px;
+  color: #333;
+  cursor: default;
+}
+
+.creditsRow {
+  margin-top: 0px;
+  text-align: right;
+  font-size: 12px;
+  color: #333;
+  cursor: default;
+}
+
+.creditsRow a,
+.creditsRow a:link,
+.creditsRow a:visited,
+.creditsRow a:hover,
+.creditsRow a:active {
+  color: #005ca7;
+  text-decoration:  none;
+  cursor: pointer;
+}
+
+.creditsRow a:hover,
+.creditsRow a:active {
+  text-decoration:  underline;
 }
 
 #tableObjTable_filter input {
