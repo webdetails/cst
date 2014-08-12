@@ -150,9 +150,9 @@
   <hop> <from>Split field to rows</from><to>Select values</to><enabled>Y</enabled> </hop>
   <hop> <from>Remove Comparator</from><to>Add priority 2</to><enabled>Y</enabled> </hop>
   <hop> <from>If DEFAULT Tab</from><to>Add priority 3</to><enabled>Y</enabled> </hop>
-  <hop> <from>Add priority 2</from><to>Sort by order and tab name</to><enabled>Y</enabled> </hop>
-  <hop> <from>Add priority 3</from><to>Sort by order and tab name</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort by order and tab name</from><to>Get minimum priority</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add priority 2</from><to>Sort by order</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add priority 3</from><to>Sort by order</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort by order</from><to>Get minimum priority</to><enabled>Y</enabled> </hop>
   <hop> <from>Get minimum priority</from><to>Filter rows</to><enabled>Y</enabled> </hop>
   <hop> <from>Filter rows</from><to>Clean output</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values</from><to>Grouped ROLE &#x26; USER</to><enabled>Y</enabled> </hop>
@@ -161,7 +161,7 @@
     <name>Add priority 2</name>
     <type>Constant</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -253,7 +253,7 @@
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>736</xloc>
+      <xloc>730</xloc>
       <yloc>544</yloc>
       <draw>Y</draw>
       </GUI>
@@ -369,7 +369,7 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>736</xloc>
+      <xloc>732</xloc>
       <yloc>480</yloc>
       <draw>Y</draw>
       </GUI>
@@ -445,7 +445,7 @@
     <name>Get minimum priority</name>
     <type>GroupBy</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -472,7 +472,7 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>736</xloc>
+      <xloc>734</xloc>
       <yloc>416</yloc>
       <draw>Y</draw>
       </GUI>
@@ -539,7 +539,7 @@
     <name>Matched Tabs</name>
     <type>Dummy</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -548,8 +548,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1312</xloc>
-      <yloc>256</yloc>
+      <xloc>1330</xloc>
+      <yloc>200</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -586,7 +586,7 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>736</xloc>
+      <xloc>738</xloc>
       <yloc>608</yloc>
       <draw>Y</draw>
       </GUI>
@@ -1058,10 +1058,10 @@
     </step>
 
   <step>
-    <name>Sort by order and tab name</name>
+    <name>Sort by order</name>
     <type>SortRows</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -1074,7 +1074,7 @@
       <free_memory/>
       <compress>N</compress>
       <compress_variable/>
-      <unique_rows>Y</unique_rows>
+      <unique_rows>N</unique_rows>
     <fields>
       <field>
         <name>priority</name>
@@ -1084,18 +1084,6 @@
       </field>
       <field>
         <name>order</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>title</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>link</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <presorted>N</presorted>

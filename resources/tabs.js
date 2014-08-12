@@ -9,9 +9,16 @@ $(window).load(function(){
 
   //add the handler as soon as it becomes available
   var functionTimed = function(){
-    if(typeof mantle_addHandler != "undefined"){
-       window.top.mantle_addHandler("PerspectivesLoadedEvent", callback);
-       window.clearInterval(timeoutMangeOpenTab);
+    if(typeof mantle_openTab != "undefined"){
+      window.clearInterval(timeoutMangeOpenTab);
+      callback();
+    } else {
+      if(typeof mantle_addHandler != "undefined"){
+        window.top.mantle_addHandler("PerspectivesLoadedEvent", callback);
+        window.clearInterval(timeoutMangeOpenTab);
+      } else {
+        //set runs interval again
+      }
     }
   };
 
@@ -36,6 +43,9 @@ $(window).load(function(){
             } else {
               window.top.mantle_openTab(tab[0], tab[1], tab[3]);
             }
+          });
+          $($(".pentaho-tab-bar .pentaho-tabWidget")[0]).mouseup(function(e){
+            e.stopPropagation();
           });
         }
       }
