@@ -1,0 +1,1073 @@
+{
+ "layout": {
+  "title": "variableInfo",
+  "rows": [
+   {
+    "id": "38843db2-ce34-9ee7-8005-1133cd0516b0",
+    "type": "LayoutResourceCode",
+    "typeDesc": "Resource",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "launcherJS",
+      "type": "Id"
+     },
+     {
+      "name": "resourceType",
+      "value": "Javascript",
+      "type": "Label"
+     },
+     {
+      "name": "resourceCode",
+      "value": "var cst = cst || {};\n\ncst.getFavorites = function(){\n    return JSON.parse(\n        $.ajax({\n            url: Dashboards.getWebAppPath() + '/api/user-settings/favorites',\n            async: false,\n            type: 'GET'\n        }).responseText\n    );\n};\ncst.setFavorites = function(favorites){\n    $.ajax({\n        url: Dashboards.getWebAppPath() + '/api/user-settings/favorites',\n        async: false,\n        type: 'POST',\n        data: JSON.stringify(favorites)\n    })\n};\ncst.addToFavorites = function(filename){\n    var favorites = cst.getFavorites() || [];\n    favorites.push({\n        fullPath: filename,\n        title: filename.split('/').reverse()[0],\n        lastUse: 0\n    });\n    cst.setFavorites(favorites);\n};\ncst.removeFromFavorites = function(filename){\n    var favorites = cst.getFavorites();\n    favorites = _.filter(favorites, function(fav){\n        return fav.fullPath !== filename;\n    });\n    cst.setFavorites(favorites);\n};\n\nvar freeform = {\n    name: \"freeform\",\n    label: \"Freeform\",\n    defaults: {\n      run: function(tgt, st, opt) {}\n    },\n\n    init: function(){\n      $.fn.dataTableExt.oSort[this.name+'-asc'] = $.fn.dataTableExt.oSort['string-asc'];\n      $.fn.dataTableExt.oSort[this.name+'-desc'] = $.fn.dataTableExt.oSort['string-desc'];\n    },\n    \n    implementation: function(tgt, st, opt){\n      opt.run.call(this, tgt, st, opt);\n    }\n    \n  };\nDashboards.registerAddIn(\"Table\", \"colType\", new AddIn(freeform)); \n\nvar CONTEXT_PATH = Dashboards.getWebAppPath() + '/';\n ",
+      "type": "Resource"
+     }
+    ]
+   },
+   {
+    "id": "e00ae7e6-e69d-2d25-9e52-c7a86acc42f7",
+    "type": "LayoutResourceFile",
+    "typeDesc": "Resource",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "themeJS",
+      "type": "Id"
+     },
+     {
+      "name": "resourceFile",
+      "value": "../../../js/themes.js",
+      "type": "ResourceFile"
+     },
+     {
+      "name": "resourceType",
+      "value": "Javascript",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "891b7761-48fb-6564-3b3d-79623ca626be",
+    "type": "LayoutResourceCode",
+    "typeDesc": "Resource",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "launcherCSS",
+      "type": "Id"
+     },
+     {
+      "name": "resourceType",
+      "value": "Css",
+      "type": "Label"
+     },
+     {
+      "name": "resourceCode",
+      "value": "/* ==========================================================================\n  FONTS\n   =========================================================================== */\n\n@font-face {\n  font-family: 'Open Sans Light';\n  font-style: normal;\n  font-weight: 300;\n  src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');\n}\n@font-face {\n  font-family: 'Open Sans';\n  font-style: normal;\n  font-weight: 400;\n  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');\n}\n@font-face {\n  font-family: 'Open Sans Semibold';\n  font-style: normal;\n  font-weight: 600;\n  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff) format('woff');\n}\n@font-face {\n  font-family: 'Open Sans Bold';\n  font-style: normal;\n  font-weight: 700;\n  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');\n}\n@font-face {\n    font-family: 'Gudea';\n    font-style: normal;\n    font-weight: 400;\n    src: local('Gudea'), url('http://themes.googleusercontent.com/static/fonts/gudea/v1/kfCeUiT0HGXHQC8YVeaKy6CWcynf_cDxXwCLxiixG1c.woff') format('woff');\n}\n\n\n/* =============================================================================\n   Style Resets\n   ========================================================================== */\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  /*margin: 0;\n    padding: 0;\n    border: 0;\n    font-family: Open Sans, Arial, sans-serif;*/\n}\n\n.mainContent{\n    padding: 10px;\n}\n\n.highlight{\n    color: blue;\n}\n\n.cstTable {\n   padding: 10px;\n} \n.cstTable thead tr {\n    display: none;\n}\n.cstTable tbody td{\n    border-bottom: 1px solid #CCDEE9;\n}\n.cstTable tbody tr:first-child td{\n    border-top: 1px solid #CCDEE9;\n}\n.cstTable tbody tr td:first-child{\n    border-left: 1px solid #CCDEE9;\n}\n.cstTable tbody tr td:last-child{\n    border-right: 1px solid #CCDEE9;\n}\n\n.cstTable .column2{\n    width:32px;\n}\n.cstTable .favorite-on{\n    float: right;\n}\n ",
+      "type": "Resource"
+     }
+    ]
+   },
+   {
+    "id": "222be0ea-2830-c8e6-f45a-c41d9e1e720c",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "f7fd500c-edb1-3d62-b268-82858923cfa7",
+    "type": "LayoutBootstrapColumn",
+    "typeDesc": "Column",
+    "parent": "222be0ea-2830-c8e6-f45a-c41d9e1e720c",
+    "properties": [
+     {
+      "name": "name",
+      "value": "mainContent",
+      "type": "Id"
+     },
+     {
+      "name": "bootstrapExtraSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapMedium",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapLarge",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapCssClass",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "mainContent",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "d1031add-b304-f801-714a-b83039c60161",
+    "type": "BootstrapPanel",
+    "typeDesc": "Bootstrap Panel",
+    "parent": "f7fd500c-edb1-3d62-b268-82858923cfa7",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapPanelStyle",
+      "value": "panel-default",
+      "type": "bootstrapPanelStyleCustom"
+     }
+    ]
+   },
+   {
+    "id": "e92a33f1-c654-804f-be3b-9521dd8ba83f",
+    "type": "BootstrapPanelHeader",
+    "typeDesc": "Panel Header",
+    "parent": "d1031add-b304-f801-714a-b83039c60161",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "ace0b0ec-ad9f-1393-601c-34118c3d1ca1",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "e92a33f1-c654-804f-be3b-9521dd8ba83f",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "a006794e-c52c-0b7e-83b8-f3ec05257a08",
+    "type": "LayoutBootstrapColumn",
+    "typeDesc": "Column",
+    "parent": "ace0b0ec-ad9f-1393-601c-34118c3d1ca1",
+    "properties": [
+     {
+      "name": "name",
+      "value": "infoText",
+      "type": "Id"
+     },
+     {
+      "name": "bootstrapExtraSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapMedium",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapLarge",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapCssClass",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "infoText",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "335fde70-66c2-fb87-dbcd-69ce76571577",
+    "type": "BootstrapPanelBody",
+    "typeDesc": "Panel Body",
+    "parent": "d1031add-b304-f801-714a-b83039c60161",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "bde15ab8-9ca9-5454-6b82-e1c54c9e18d1",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "335fde70-66c2-fb87-dbcd-69ce76571577",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "146e4d10-a8c2-d4fe-554b-59ce40d60420",
+    "type": "LayoutBootstrapColumn",
+    "typeDesc": "Column",
+    "parent": "bde15ab8-9ca9-5454-6b82-e1c54c9e18d1",
+    "properties": [
+     {
+      "name": "name",
+      "value": "tableBodyObj",
+      "type": "Id"
+     },
+     {
+      "name": "bootstrapExtraSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapMedium",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapLarge",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapCssClass",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "cstTable",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "4cd29792-01bd-3de0-925c-0a1cc16bf95c",
+    "type": "BootstrapPanelFooter",
+    "typeDesc": "Panel Footer",
+    "parent": "d1031add-b304-f801-714a-b83039c60161",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "hidden",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "fd01dcdf-8059-e9c8-d17a-2a92d0592515",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "f7fd500c-edb1-3d62-b268-82858923cfa7",
+    "properties": [
+     {
+      "name": "name",
+      "value": "creditsRow",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "creditsRow",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "9003804b-9192-ca17-1c4d-4c8630aaabc0",
+    "type": "LayoutColumn",
+    "typeDesc": "Column",
+    "parent": "fd01dcdf-8059-e9c8-d17a-2a92d0592515",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "columnSpan",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "columnPrepend",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "columnAppend",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "columnPrependTop",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "columnAppendBottom",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "columnBorder",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "columnBigBorder",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "a008e824-1e42-05bc-58ac-4ec5945e5f94",
+    "type": "LayoutHtml",
+    "typeDesc": "Html",
+    "parent": "9003804b-9192-ca17-1c4d-4c8630aaabc0",
+    "properties": [
+     {
+      "name": "name",
+      "value": "aboutText",
+      "type": "Id"
+     },
+     {
+      "name": "html",
+      "value": "<a href=\"http://www.webdetails.pt/ctools/cst.html\" target=\"_blank\">About CST launcher</a> ",
+      "type": "Html"
+     },
+     {
+      "name": "fontSize",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "color",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "cssClass",
+      "value": "aboutText",
+      "type": "String"
+     }
+    ]
+   }
+  ]
+ },
+ "components": {
+  "rows": [
+   {
+    "id": "OTHERCOMPONENTS",
+    "name": "Others",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "Others",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "b783f285-fa8f-dccd-ca89-fa79af512a87",
+    "type": "ComponentsTable",
+    "typeDesc": "table Component",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "tableC",
+      "type": "Id"
+     },
+     {
+      "name": "expandContainerObject",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "listeners",
+      "value": "['${p:refreshEvent}']",
+      "type": "Listeners"
+     },
+     {
+      "name": "oLanguage",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "language",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "colSortable",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "colFormats",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "colWidths",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "colHeaders",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "parameters",
+      "value": "[]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "expandParameters",
+      "value": "[]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "colTypes",
+      "value": "[\"string\",\"hidden\",\"freeform\",\"hidden\"]",
+      "type": "colTypesCustom"
+     },
+     {
+      "name": "paginate",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "lengthChange",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "filter",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "info",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "sort",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "expandOnClick",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "displayLength",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "colSearchable",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "drawCallback",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "dataSource",
+      "value": "readConfigDS",
+      "type": "Datasource"
+     },
+     {
+      "name": "sortBy",
+      "value": "[]",
+      "type": "SortByArray"
+     },
+     {
+      "name": "sDom",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "refreshPeriod",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "priority",
+      "value": 5,
+      "type": "Integer"
+     },
+     {
+      "name": "tableStyle",
+      "value": "classic",
+      "type": "TableStyle"
+     },
+     {
+      "name": "paginationType",
+      "value": "simple_numbers",
+      "type": "PaginationType"
+     },
+     {
+      "name": "htmlObject",
+      "value": "${p:tableBodyObj}",
+      "type": "HtmlObject"
+     },
+     {
+      "name": "executeAtStart",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "paginateServerside",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "preExecution",
+      "value": "function f(){\n    var idxFilePath = 1;\n\n    this.setAddInOptions('colType', 'freeform',{\n        run: function(tgt, st, opt) {\n            $(tgt).empty().html(\n                $('<div />')\n                    .toggleClass('favorite-on', st.value)\n                    .toggleClass('favorite-off', !st.value)\n            );\n        }\n    });\n    \n} ",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postFetch",
+      "value": "function f(data){\n    var idx = {\n        label: 0,\n        url: 3,\n    };\n    var idxs = [idx.label, idx.url]\n    \n    var URLToPath = function(url){\n        var path = url.split('api/repos/')[1].split('/')[0]\n        return Encoder.decodeRepositoryPath(unescape(path));\n    };\n    var pathToURL = function(fullPath){\n        return \"api/repos/\" + Encoder.encodeRepositoryPath(fullPath) + \"/generatedContent\";\n    };\n       \n    data.resultset = _.map(data.resultset, function(row){\n        var newRow = _.map(idxs, function(colIdx){\n            return row[colIdx];\n        });\n        newRow.push(false);\n        var path = URLToPath(row[idx.url]);\n        newRow.push(path);\n        return newRow;\n    });\n\n    var favourites = JSON.parse(\n        $.ajax({\n            url: Dashboards.getWebAppPath() + '/api/user-settings/favorites',\n            async: false,\n            type: 'GET'\n        }).responseText\n    );\n\n    var rowsFavorites = _.map(favourites, function(obj){\n        return [obj.title, pathToURL(obj.fullPath), true, obj.fullPath]\n    });\n        \n    paths = _.pluck(favourites, 'fullPath');\n    _.each(data.resultset, function(row){\n        if (_.contains(paths, row[3])){\n            row[2] = true;        \n        }\n    })\n\n    data.resultset = _.union(data.resultset, rowsFavorites)\n    data.metadata = _.map(idxs, function(colIdx, k){\n        var metadata = data.metadata[colIdx];\n            metadata.colIndex = k;\n        return metadata;\n    });\n    data.metadata.push({\n        colIndex: 2,\n        colName: \"Favorite\",\n        colType: \"Boolean\"\n    });\n    data.metadata.push({\n        colIndex: 3,\n        colName: \"fullPath\",\n        colType: \"string\"\n    });\n\n    $('#infoText').html(Mustache.render([\n        'You have <span class=\"highlight\">{{nTabs}}</span> available tabs.'\n        ].join(''), {\n        nTabs: data.resultset.length\n    }));\n    return data;\n} ",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "preChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "tooltip",
+      "value": "",
+      "type": "Html"
+     },
+     {
+      "name": "extraOptions",
+      "value": "[]",
+      "type": "OptionArray"
+     },
+     {
+      "name": "clickAction",
+      "value": "function(st){\n    \n\n    \n    var idxURL = 1, idxFilePath = 3;\n    switch (st.colIdx){\n        case 2:\n            if (st.value){\n                cst.removeFromFavorites(st.tableData[st.rowIdx][idxFilePath]);\n            } else {\n                cst.addToFavorites(st.tableData[st.rowIdx][idxFilePath]);\n            }\n            Dashboards.fireChange('${p:refreshEvent}', $.now());\n            break;\n\n        default:\n            var url = Dashboards.getWebAppPath() + '/' + st.tableData[st.rowIdx][idxURL];\n            window.open(url);    \n    }\n} ",
+      "type": "JavaScript"
+     }
+    ]
+   },
+   {
+    "id": "GENERIC",
+    "name": "Generic",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "Generic",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "627e76f5-214b-8b96-871e-ab494b554df7",
+    "type": "ComponentsParameter",
+    "typeDesc": "Simple parameter",
+    "parent": "GENERIC",
+    "properties": [
+     {
+      "name": "name",
+      "value": "refreshEvent",
+      "type": "Id"
+     },
+     {
+      "name": "propertyValue",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "parameterViewRole",
+      "value": "unused",
+      "type": "parameterViewRoleCustom"
+     },
+     {
+      "name": "bookmarkable",
+      "value": "false",
+      "type": "Boolean"
+     }
+    ]
+   }
+  ]
+ },
+ "datasources": {
+  "rows": [
+   {
+    "id": "SPARKL_CPKENDPOINTS",
+    "name": "SPARKL Endpoints",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "SPARKL Endpoints",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "931e5957-4014-1090-146b-b7789eea58df",
+    "type": "Componentssparkl_getVariableInfo_CPKENDPOINT",
+    "typeDesc": "getVariableInfo Endpoint",
+    "parent": "SPARKL_CPKENDPOINTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "getVariableInfo",
+      "type": "Id"
+     },
+     {
+      "name": "stepName",
+      "value": "OUTPUT",
+      "type": "String"
+     },
+     {
+      "name": "kettleOutput",
+      "value": "Inferred",
+      "type": "kettleOutputCustom"
+     }
+    ],
+    "meta": "CPK",
+    "meta_pluginId": "sparkl",
+    "meta_endpoint": "getVariableInfo"
+   },
+   {
+    "id": "SCRIPTING",
+    "name": "SCRIPTING Queries",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "SCRIPTING Queries",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "6ffb4845-6ced-275f-a446-ba57686784c7",
+    "type": "Componentsscriptable_scripting",
+    "typeDesc": "scriptable over scripting",
+    "parent": "SCRIPTING",
+    "properties": [
+     {
+      "name": "name",
+      "value": "systemInfo",
+      "type": "Id"
+     },
+     {
+      "name": "language",
+      "value": "beanshell",
+      "type": "String"
+     },
+     {
+      "name": "initscript",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "access",
+      "value": "public",
+      "type": "Access"
+     },
+     {
+      "name": "query",
+      "value": "import org.pentaho.reporting.engine.classic.core.util.TypedTableModel;\nimport org.pentaho.platform.engine.core.system.*;\nimport org.pentaho.platform.api.engine.*;\nimport org.pentaho.platform.web.http.session.PentahoHttpSession;\nimport java.util.Arrays;\nimport java.util.Locale;\nimport java.util.Map;\nimport java.util.TreeMap;\nimport org.pentaho.reporting.engine.classic.core.ClassicEngineBoot;\nimport org.pentaho.reporting.engine.classic.core.ClassicEngineInfo;\nimport org.pentaho.reporting.engine.classic.core.metadata.DataFactoryRegistry;\nimport org.pentaho.reporting.engine.classic.core.metadata.ElementTypeRegistry;\nimport org.pentaho.reporting.engine.classic.core.metadata.ExpressionRegistry;\nimport org.pentaho.reporting.engine.classic.core.metadata.MetaData;\nimport org.pentaho.reporting.engine.classic.core.util.TypedTableModel;\nimport org.pentaho.reporting.libraries.base.boot.Module;\nimport org.pentaho.reporting.libraries.base.boot.PackageManager;\n\n\nString[] columnNames = new String[3];\ncolumnNames[0] = \"Group\";\ncolumnNames[1] = \"Variable\";\ncolumnNames[2] = \"Value\";\n\nClass[] columnTypes = new Class[3];\ncolumnTypes[0] = String.class;\ncolumnTypes[1] = String.class;\ncolumnTypes[2] = String.class;\n\nTypedTableModel model = new TypedTableModel( columnNames, columnTypes);\n\n/*\n *  Generic functions\n */\n\n  Map collectEngineData()\n  {\n    TreeMap s = new TreeMap();\n    s.put(\"Version\", ClassicEngineInfo.getInstance().getVersion());\n    return s;\n  }\n\n  Map collectModules()\n  {\n    PackageManager packageManager = ClassicEngineBoot.getInstance().getPackageManager();\n    Module[] modules = packageManager.getAllModules();\n    TreeMap s = new TreeMap();\n    for (int i = 0; i < modules.length; i++)\n    {\n      Module module = modules[i];\n      String av = packageManager.isModuleAvailable(module) ? \"Available\" : \"Disabled\";\n      s.put(module.getName(), av);\n    }\n    return s;\n  }\n\n  Map collectData(MetaData[] data)\n  {\n    TreeMap s = new TreeMap();\n    for (int i = 0; i < data.length; i++)\n    {\n      MetaData metaData = data[i];\n      try{\n        s.put(metaData.getDisplayName(Locale.ENGLISH), metaData.getName());\n      }catch(Exception e){\n        System.out.println(\"Failed to collect data for \" + metaData.getName());\n      }\n    }\n    return s;\n  }\n\n  void add (TypedTableModel model, String type, Map map)\n  {\n    String[] keys = (String[]) map.keySet().toArray(new String[map.size()]);\n    Arrays.sort(keys);\n    for (int i = 0; i < keys.length; i++)\n    {\n      String key = keys[i];\n      model.addRow(new Object[]{type, key, map.get(key)});\n    }\n  }\n  \n  String getAttributeValue(Object tmp){\n\n    // System.out.println(\"Attribute: \" + x + \"; Type:\" + tmp.getClass());\n    String val = (tmp != null) ? tmp.toString() : \"null\";\n    String typ = (tmp != null) ? tmp.getClass().toString() : \"null\";\n    \n    return val;\n  }\n  \n  void collectPentahoSessionAttributes (String title, PentahoHttpSession session)\n  {\n  \n    for(java.util.Iterator e2 = session.getAttributeNames();e2.hasNext() ;){\n\n    x = (String)e2.next();\n    tmp = pentahoSession.getAttribute(x);\n    System.out.println(\"  XXXXXXXX \" + x +\" = \"+tmp);\n    //model.addRow( new Object[]{title, val, getAttributeValue(tmp)});\n    }\n\n  }\n\n\n/*\n *  Accessing the variables needed\n */\n\n\n\nThread.currentThread().setContextClassLoader( org.pentaho.platform.engine.core.system.PentahoSessionHolder.class.getClassLoader() );\nfinal IPentahoSession pentahoSession = PentahoSessionHolder.getSession();\n\n\nClassLoader contextCL = Thread.currentThread().getContextClassLoader();\ntry {\n\n    Thread.currentThread().setContextClassLoader( org.pentaho.platform.engine.core.system.PentahoSessionHolder.class.getClassLoader() );\n    final IPentahoSession pentahoSession = PentahoSessionHolder.getSession();\n} catch ( Exception e ) {\n} finally {\n  Thread.currentThread().setContextClassLoader( contextCL );\n}\n\n\n/*\n *  Getting Pentaho Session Info\n */\n\n\nString x = null;\nObject tmp = null;\n\n\nfor(java.util.Iterator e2 = pentahoSession.getAttributeNames();e2.hasNext() ;){\n\n    x = (String)e2.next();\n    tmp = pentahoSession.getAttribute(x);\n    \n\n    System.out.println(\"Attribute: \" + x + \"; Type:\" + tmp.getClass());\n    \n    if(tmp instanceof String){\n        model.addRow( new Object[]{\"Pentaho Session Variable\", x, getAttributeValue(tmp)});\n    }\n    else if(tmp instanceof PentahoHttpSession){\n    \n    }\n    else{\n        //System.out.println(\"Name: \" + x + \"; Class: \" + tmp.getClass().getName() );\n        model.addRow( new Object[]{\"Pentaho Session Variable\", x, getAttributeValue(tmp)});\n    }\n}\n\n/*\n *  Get generic info\n */\n\n\nmodel.addRow( new Object[]{\"Runtime Information\", \"Processors\", Runtime.getRuntime().availableProcessors()});\nmodel.addRow( new Object[]{\"Runtime Information\", \"Max Memory\", Runtime.getRuntime().maxMemory()});\nmodel.addRow( new Object[]{\"Runtime Information\", \"Total Memory\", Runtime.getRuntime().totalMemory()});\n\n\n/*\n *  HttpSession Info\n */\n\njava.lang.reflect.Field field = pentahoSession.getClass().getDeclaredField(\"session\");\nfield.setAccessible(true); // this basically overrides the private setting in the PentahoHttpSession class\njavax.servlet.http.HttpSession httpSession = (javax.servlet.http.HttpSession)field.get(pentahoSession);\n\nfor(java.util.Enumeration e3 = httpSession.getServletContext().getInitParameterNames(); e3.hasMoreElements() ;){\n    x = (String)e3.nextElement();\n    tmp = httpSession.getServletContext().getInitParameter(x);\n    model.addRow( new Object[]{\"Pentaho Servlet Context Init Attribute\", x, tmp});\n}\n\n\n/*\n *  Get reporting info\n */\n\n\nadd(model, \"System Properties\", System.getProperties());\nadd(model, \"Environment\", System.getenv());\nadd(model, \"Reporting Engine\", collectEngineData());\nadd(model, \"Reporting Modules\", collectModules());\n//add(model, \"Reporting Data-Factories\", collectData(DataFactoryRegistry.getInstance().getAll()));\nadd(model, \"Reporting Elements\", collectData(ElementTypeRegistry.getInstance().getAllElementTypes()));\nadd(model, \"Reporting Expressions\", collectData(ExpressionRegistry.getInstance().getAllExpressionMetaDatas()));\n\n/*\n *  Get installed plugins and whenever possible, its version\n */\n\nString getVersionXmlAsString( java.io.BufferedInputStream bis ){\n\n  String xmlString = \"\";\n\n  if( bis != null ){\n\n    byte[] contents = new byte[1024];\n\n    int bytesRead=0;\n\n    while( ( bytesRead = bis.read( contents ) ) != -1 ){ \n      xmlString = new String( contents, 0, bytesRead );               \n    }\n  }\n\n  //parse xmlString to get the version\n  if( xmlString != null ){\n\n    final String VERSION_REGEX = \"<version(.*?)>(.*?)</version>\";\n\n    java.util.regex.Matcher matcher = java.util.regex.Pattern.compile( VERSION_REGEX , \n      java.util.regex.Pattern.DOTALL | java.util.regex.Pattern.CASE_INSENSITIVE ).matcher( xmlString );\n\n    if ( matcher.find() ) {\n       String version = matcher.group( 2 );\n       if( version != null && version.contains(\"TRUNK\") ){\n          return version + \" (\" + matcher.group( 1 ) + \" )\";\n       }        \n       return version;\n    }\n  }\n  return \"N/A\";\n}\n\nIPluginManager pluginManager = PentahoSystem.get( IPluginManager.class );\n\nif( pluginManager.getRegisteredPlugins() != null ){ \n\n  for( String pluginId : pluginManager.getRegisteredPlugins() ){\n\n    try{\n\n      // the plugin id is done, now let's go a fit further and attempt to fetch version.xml's data\n\n      ClassLoader pluginCL = pluginManager.getClassLoader( pluginId );\n\n      if( pluginCL != null && pluginCL.findResource( \"version.xml\" ) != null ){\n        \n        model.addRow( new Object[]{ \"Installed Plugins\", pluginId, \n          getVersionXmlAsString( pluginManager.getClassLoader( pluginId ).findResource( \"version.xml\" ).getContent() ) } );\n      } else {\n\n        model.addRow( new Object[]{ \"Installed Plugins\", pluginId, \"N/A\" } );\n      }\n\n    } catch( Exception e ){\n      model.addRow( new Object[]{ \"Installed Plugins\", pluginId, \"N/A\" } );   \n    }\n  }\n}\nreturn model;",
+      "type": "SqlQuery"
+     },
+     {
+      "name": "parameters",
+      "value": "[]",
+      "type": "CdaParameters"
+     },
+     {
+      "name": "output",
+      "value": "[]",
+      "type": "IndexArray"
+     },
+     {
+      "name": "outputMode",
+      "value": "include",
+      "type": "OutputMode"
+     },
+     {
+      "name": "cdacolumns",
+      "value": "[]",
+      "type": "CdaColumnsArray"
+     },
+     {
+      "name": "cdacalculatedcolumns",
+      "value": "[]",
+      "type": "CdaCalculatedColumnsArray"
+     },
+     {
+      "name": "cacheDuration",
+      "value": 3600,
+      "type": "Integer"
+     },
+     {
+      "name": "cache",
+      "value": "false",
+      "type": "Boolean"
+     }
+    ],
+    "meta": "CDA",
+    "meta_conntype": "scripting.scripting",
+    "meta_datype": "scriptable"
+   },
+   {
+    "id": "CST_CPKENDPOINTS",
+    "name": "CST Endpoints",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "CST Endpoints",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "408e109c-a11c-d43d-8308-1935649ef8e5",
+    "type": "Componentscst_readConfig_CPKENDPOINT",
+    "typeDesc": "readConfig Endpoint",
+    "parent": "CST_CPKENDPOINTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "readConfigDS",
+      "type": "Id"
+     },
+     {
+      "name": "stepName",
+      "value": "OUTPUT",
+      "type": "String"
+     },
+     {
+      "name": "kettleOutput",
+      "value": "Json",
+      "type": "kettleOutputCustom"
+     }
+    ],
+    "meta": "CPK",
+    "meta_pluginId": "cst",
+    "meta_endpoint": "readConfig"
+   }
+  ]
+ },
+ "filename": "/system/cst/dashboards/launcher.cdfde"
+}
