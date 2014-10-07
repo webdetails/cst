@@ -92,8 +92,7 @@ div#btnArea {
 	color: #293b44;
 }
 
-.ace_editor,
-.ace_content {
+.ace_editor {
 	width: 100% !important;
 }
 
@@ -145,4 +144,8 @@ pre#editArea:before {
 	background-image: radial-gradient(50% 50%,ellipse contain,rgba(0,0,0,0.5),rgba(0,0,0,0) 100%);
 	background-repeat: no-repeat;
 	background-position: 0 -5px;
+}
+
+.ace-tm .ace_print-margin {
+	background: none;
 }

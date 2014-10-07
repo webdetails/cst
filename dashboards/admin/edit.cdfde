@@ -614,7 +614,7 @@
      },
      {
       "name": "columnSpan",
-      "value": "24",
+      "value": "12",
       "type": "Integer"
      },
      {
@@ -682,8 +682,71 @@
     "properties": [
      {
       "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "bdee262a-50df-8823-60cf-3d6419e28dc0",
+    "type": "LayoutBootstrapColumn",
+    "typeDesc": "Column",
+    "parent": "4db996e5-e8f7-a1fe-31df-030697cf8af1",
+    "properties": [
+     {
+      "name": "name",
       "value": "editor",
       "type": "Id"
+     },
+     {
+      "name": "bootstrapExtraSmall",
+      "value": "12",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapMedium",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapLarge",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapCssClass",
+      "value": "",
+      "type": "String"
      },
      {
       "name": "height",
@@ -707,7 +770,7 @@
      },
      {
       "name": "cssClass",
-      "value": "",
+      "value": "editor",
       "type": "String"
      }
     ]
@@ -869,7 +932,7 @@
      },
      {
       "name": "columnSpan",
-      "value": "3",
+      "value": "2",
       "type": "Integer"
      },
      {
@@ -1067,29 +1130,6 @@
       "type": "String"
      }
     ]
-   },
-   {
-    "id": "98331e9b-0428-b197-4f93-bef320c568c2",
-    "type": "LayoutSpace",
-    "typeDesc": "Space",
-    "parent": "UnIqEiD",
-    "properties": [
-     {
-      "name": "height",
-      "value": "100",
-      "type": "Integer"
-     },
-     {
-      "name": "backgroundColor",
-      "value": "",
-      "type": "Color"
-     },
-     {
-      "name": "cssClass",
-      "value": "",
-      "type": "String"
-     }
-    ]
    }
   ]
  },
@@ -1220,7 +1260,7 @@
      },
      {
       "name": "customfunction",
-      "value": "function f(){\n    \n \n var $ph = $(\"#\"+this.htmlObject);\n \n $ph.empty().append(\"<iframe id='edit' class='aceEditorWrapper' src='../../pentaho-cdf-dd/api/editor/getExternalEditor?path=/system/cst/resources/config.xml&mode=xml'></iframe>\")\n} ",
+      "value": "function f(){\n    \n \n var $ph = $(\"#\"+this.htmlObject);\n \n $ph.empty().append(\"<iframe id='edit' class='aceEditorWrapper' src='../../pentaho-cdf-dd/api/editor/getExternalEditor?path=/system/cst/resources/config.xml&mode=xml' frameBorder='0'></iframe>\")\n} ",
       "type": "JavaScript"
      },
      {
@@ -1402,13 +1442,13 @@
       "type": "Id"
      },
      {
-      "name": "initscript",
-      "value": "",
+      "name": "language",
+      "value": "beanshell",
       "type": "String"
      },
      {
-      "name": "language",
-      "value": "beanshell",
+      "name": "initscript",
+      "value": "",
       "type": "String"
      },
      {
