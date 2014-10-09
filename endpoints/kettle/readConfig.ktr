@@ -98,29 +98,6 @@
   </info>
   <notepads>
   </notepads>
-  <connection>
-    <name>AgileBI</name>
-    <server>localhost</server>
-    <type>MONETDB</type>
-    <access>Native</access>
-    <database>pentaho-instaview</database>
-    <port>50000</port>
-    <username>monetdb</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb14a17edb86abd8</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <read_only>true</read_only>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_INFOBRIGHT.characterEncoding</code><attribute>UTF-8</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>50000</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-    </attributes>
-  </connection>
   <order>
   <hop> <from>Filter Default</from><to>Filter Role and User</to><enabled>Y</enabled> </hop>
   <hop> <from>Filter Default</from><to>If DEFAULT Tab</to><enabled>Y</enabled> </hop>
@@ -152,10 +129,12 @@
   <hop> <from>If DEFAULT Tab</from><to>Add priority 3</to><enabled>Y</enabled> </hop>
   <hop> <from>Add priority 2</from><to>Sort by order</to><enabled>Y</enabled> </hop>
   <hop> <from>Add priority 3</from><to>Sort by order</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort by order</from><to>Get minimum priority</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get minimum priority</from><to>Filter rows</to><enabled>Y</enabled> </hop>
   <hop> <from>Filter rows</from><to>Clean output</to><enabled>Y</enabled> </hop>
   <hop> <from>Select values</from><to>Grouped ROLE &#x26; USER</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort by order</from><to>map mode to number</to><enabled>Y</enabled> </hop>
+  <hop> <from>map mode to number</from><to>Get minimum priority</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get minimum priority</from><to>map number to mode</to><enabled>Y</enabled> </hop>
+  <hop> <from>map number to mode</from><to>Filter rows</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Add priority 2</name>
@@ -250,11 +229,15 @@
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
+      </field>      <field>        <name>minMode</name>
+        <rename>mode</rename>
+        <length>-2</length>
+        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>730</xloc>
-      <yloc>544</yloc>
+      <xloc>1088</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -369,8 +352,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>732</xloc>
-      <yloc>480</yloc>
+      <xloc>960</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -469,11 +452,17 @@
           <type>MIN</type>
           <valuefield/>
         </field>
+        <field>
+          <aggregate>minMode</aggregate>
+          <subject>modeEnum</subject>
+          <type>MIN</type>
+          <valuefield/>
+        </field>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>734</xloc>
-      <yloc>416</yloc>
+      <xloc>608</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -586,8 +575,8 @@
            </partitioning>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>738</xloc>
-      <yloc>608</yloc>
+      <xloc>1184</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -733,6 +722,21 @@
         <name>link</name>
         <xpath>.</xpath>
         <element_type>node</element_type>
+        <result_type>valueof</result_type>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>mode</name>
+        <xpath>..&#x2f;&#x40;mode</xpath>
+        <element_type>attribut</element_type>
         <result_type>valueof</result_type>
         <type>String</type>
         <format/>
@@ -967,6 +971,12 @@
         <mask/>
         <set_empty_string>N</set_empty_string>
         </field>
+      <field>
+        <name>mode</name>
+        <value>tabs</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+        </field>
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -1138,6 +1148,70 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>352</xloc>
       <yloc>224</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>map mode to number</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <field_to_use>mode</field_to_use>
+    <target_field>modeEnum</target_field>
+    <non_match_default>2</non_match_default>
+    <fields>
+      <field>
+        <source_value>launcher</source_value>
+        <target_value>1</target_value>
+      </field>
+      <field>
+        <source_value>tabs</source_value>
+        <target_value>2</target_value>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>608</xloc>
+      <yloc>416</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>map number to mode</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <field_to_use>minMode</field_to_use>
+    <target_field/>
+    <non_match_default>tabs</non_match_default>
+    <fields>
+      <field>
+        <source_value>1</source_value>
+        <target_value>launcher</target_value>
+      </field>
+      <field>
+        <source_value>2</source_value>
+        <target_value>tabs</target_value>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>800</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
