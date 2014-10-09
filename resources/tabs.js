@@ -32,18 +32,26 @@ $(window).load(function(){
       dataType: "json",
       success: function(data){
         if(data.resultset){
-          var tabsCount = data.queryInfo.totalRows;
-          $.each(data.resultset, function(i, tab){
-            if(tab[2]){
-              if(tabsCount == 1){
-                window.location.href = tab[3];
+          var mode = _.uniq(_.map(data.resultset, function(row){
+            return row[4];
+          }));
+          //console.log("CST: " + JSON.stringify(mode));
+          if (mode[0] == "launcher"){
+            window.top.mantle_openTab('CST', 'Community Startup Tabs',  CONTEXT_PATH + "plugin/cst/api/launcher");
+          } else {
+            var tabsCount = data.queryInfo.totalRows;
+            $.each(data.resultset, function(i, tab){
+              if(tab[2]){
+                if(tabsCount == 1){
+                  window.location.href = tab[3];
+                } else {
+                  window.open(tab[3], tab[1]);
+                }
               } else {
-                window.open(tab[3], tab[1]);
+                window.top.mantle_openTab(tab[0], tab[1], tab[3]);
               }
-            } else {
-              window.top.mantle_openTab(tab[0], tab[1], tab[3]);
-            }
-          });
+            });
+          }
           $($(".pentaho-tab-bar .pentaho-tabWidget")[0]).mouseup(function(e){
             e.stopPropagation();
           });
