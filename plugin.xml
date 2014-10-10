@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin title="cst" loader="DEFAULT">
+  <!-- BEGIN section that defines the menu entries -->
   <overlays>
     <overlay id="startup.cst" resourcebundle="content/cst/resources/lang/messages">
       <menubar id="toolsmenu">
         <menubar id="cstMenu" layout="vertical" label="${Launcher.menugroup}">
-          <menuitem id="cstEdit" label="${Launcher.menugroup.edit}" command="mantleXulHandler.openUrl('${Launcher.cst}','${Launcher.menugroup.edit_TOOLTIP}','plugin/cst/api/edit')"/>
-          <menuitem id="cstLaunch" label="${Launcher.menugroup.launcher}" command="mantleXulHandler.openUrl('${Launcher.cst}','${Launcher.menugroup.launcher_TOOLTIP}','plugin/cst/api/launcher')"/>
+          <menuitem id="cstLaunch" label="${Launcher.menu.launcher}" command="mantleXulHandler.openUrl('${Launcher.tab.launcher_TOOLTIP}','${Launcher.tab.launcher}','plugin/cst/api/launcher')"/>
+          <menuitem id="cstEdit" label="${Launcher.menu.edit}" command="mantleXulHandler.openUrl('${Launcher.tab.edit_TOOLTIP}','${Launcher.tab.edit}','plugin/cst/api/edit')"/>
         </menubar>
       </menubar>
     </overlay>
   </overlays>
+  <!-- END section that defines the menu entries -->
   <lifecycle-listener class="pt.webdetails.cpk.CpkLifecycleListener"/>
   <static-paths>
     <static-path url="/cst/static" localFolder="static"/>
