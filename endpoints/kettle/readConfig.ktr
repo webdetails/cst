@@ -26,7 +26,7 @@
         </parameter>
         <parameter>
             <name>cpk.session.roles</name>
-            <default_value>Administrator,Authenticated</default_value>
+            <default_value>&#x7b;&#x22;roles&#x22;&#x3a;&#x5b;&#x22;Administrator&#x22;,&#x22;Authenticated&#x22;&#x5d;&#x7d;</default_value>
             <description/>
         </parameter>
         <parameter>
@@ -123,8 +123,6 @@
   <hop> <from>Regex passed&#x3f; 2</from><to>Removed Matched on ok</to><enabled>Y</enabled> </hop>
   <hop> <from>Removed Matched on ok</from><to>Matched Tabs</to><enabled>Y</enabled> </hop>
   <hop> <from>If ROLE Tab</from><to>Get Roles</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get Roles</from><to>Split field to rows</to><enabled>Y</enabled> </hop>
-  <hop> <from>Split field to rows</from><to>Select values</to><enabled>Y</enabled> </hop>
   <hop> <from>Remove Comparator</from><to>Add priority 2</to><enabled>Y</enabled> </hop>
   <hop> <from>If DEFAULT Tab</from><to>Add priority 3</to><enabled>Y</enabled> </hop>
   <hop> <from>Add priority 2</from><to>Sort by order</to><enabled>Y</enabled> </hop>
@@ -135,6 +133,8 @@
   <hop> <from>map mode to number</from><to>Get minimum priority</to><enabled>Y</enabled> </hop>
   <hop> <from>Get minimum priority</from><to>map number to mode</to><enabled>Y</enabled> </hop>
   <hop> <from>map number to mode</from><to>Filter rows</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get Roles</from><to>Json Input</to><enabled>Y</enabled> </hop>
+  <hop> <from>Json Input</from><to>Select values</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Add priority 2</name>
@@ -362,7 +362,7 @@
     <name>Get Roles</name>
     <type>GetVariable</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -1108,32 +1108,6 @@
     </step>
 
   <step>
-    <name>Split field to rows</name>
-    <type>SplitFieldToRows3</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-   <splitfield>comparatorArray</splitfield>
-   <delimiter>,</delimiter>
-   <newfield>comparator</newfield>
-   <rownum>N</rownum>
-   <rownum_field/>
-   <resetrownumber>Y</resetrownumber>
-   <delimiter_is_regex>N</delimiter_is_regex>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>544</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>if USER Tab</name>
     <type>Dummy</type>
     <description/>
@@ -1212,6 +1186,68 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>800</xloc>
       <yloc>512</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Json Input</name>
+    <type>JsonInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>N</ignoreMissingPath>
+    <rownum_field/>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>comparator</name>
+        <path>&#x24;.roles&#x5b;&#x3a;&#x5d;</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>Y</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField>comparatorArray</valueField>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>544</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
