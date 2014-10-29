@@ -52,8 +52,10 @@ $(window).load(function(){
               }
             });
           }
-          $($(".pentaho-tab-bar .pentaho-tabWidget")[0]).mouseup(function(e){
-            e.stopPropagation();
+          $($(".pentaho-tab-deck-panel iframe")[0]).load(function(){
+            setTimeout(function(){
+              $($(".pentaho-tab-bar .pentaho-tabWidget")[0]).mouseup();
+            }, 1000);
           });
         }
       }
