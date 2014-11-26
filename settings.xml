@@ -9,5 +9,5 @@
 	  <path>system/cst/resources/components</path>
 	  <path>cst/components</path>
 	</cde-components>
-    <cache>false</cache>
+    <cache>true</cache>
 </settings>
