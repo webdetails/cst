@@ -61,7 +61,7 @@
       <version>
         <branch>${project.stage}</branch>
         <version>${project.revision}</version>
-        <name>${project.stage}</name>
+        <name>${marketplace.metadata.version.name}</name>
         <package_url>
           ${marketplace.metadata.package_url}
         </package_url>
@@ -69,7 +69,7 @@
           ${marketplace.metadata.samples_url}
         </samples_url>
         <description>
-          ${marketplace.metadata.description}
+          ${marketplace.metadata.version.description}
         </description>
         <build_id>${sequential.build.id}</build_id>
         <min_parent_version>${marketplace.metadata.min_parent_version}</min_parent_version>
