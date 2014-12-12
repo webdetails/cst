@@ -28,7 +28,7 @@ $(window).load(function(){
     var tabs;
     $.ajax({
       type: "GET",
-      url: CONTEXT_PATH + "plugin/cst/api/readConfig",
+      url: CONTEXT_PATH + "plugin/cst/api/readConfigOnce",
       dataType: "json",
       success: function(data){
         if(data.resultset){
