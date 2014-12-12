@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin title="cst" loader="DEFAULT">
-<overlays>
-		<overlay id="startup.cst" resourcebundle="content/cst/resources/lang/messages">
-			<menubar id="toolsmenu">
-	        	<menuitem id="cst" label="${Launcher.cst}" command="mantleXulHandler.openUrl('${Launcher.cst}','${Launcher.cst_TOOLTIP}','plugin/cst/api/default')"/>
-	      	</menubar>
-	    </overlay>
-	</overlays>
-	<lifecycle-listener class="pt.webdetails.cpk.CpkLifecycleListener"/>
-	<static-paths>
-		<static-path url="/cst/static" localFolder="static"/>
-		<static-path url="/cst/resources" localFolder="resources"/>
-	</static-paths>
-	<content-types>
-		<content-type>
-			<title>Cst</title>
-			<description></description>
-			<company name="" url="" logo="@PLUGIN_COMPANY_LOGO@"></company>
-		</content-type>
-	</content-types>
-	<content-generator
-		id="cst"
-		title="Cst"
-		type="cst"
-		class="pt.webdetails.cpk.CpkContentGenerator"/>
-	<!-- Menu entry -->
-	<menu-items>
-		<!--<menu-item id="cst_main" anchor="tools-submenu" label="Cst" command="content/cst/" type="MENU_ITEM" how="LAST_CHILD"/>-->
-	</menu-items>
-	<external-resources>
+  <!-- BEGIN section that defines the menu entries -->
+  <overlays>
+    <overlay id="startup.cst" resourcebundle="content/cst/resources/lang/messages">
+      <menubar id="toolsmenu">
+        <menubar id="cstMenu" layout="vertical" label="${Launcher.menugroup}">
+          <menuitem id="cstLaunch" label="${Launcher.menu.launcher}" command="mantleXulHandler.openUrl('${Launcher.tab.launcher_TOOLTIP}','${Launcher.tab.launcher}','plugin/cst/api/launcher')"/>
+          <menuitem id="cstEdit" label="${Launcher.menu.edit}" command="mantleXulHandler.openUrl('${Launcher.tab.edit_TOOLTIP}','${Launcher.tab.edit}','plugin/cst/api/edit')"/>
+        </menubar>
+      </menubar>
+    </overlay>
+  </overlays>
+  <!-- END section that defines the menu entries -->
+  <lifecycle-listener class="pt.webdetails.cpk.CpkLifecycleListener"/>
+  <static-paths>
+    <static-path url="/cst/static" localFolder="static"/>
+    <static-path url="/cst/resources" localFolder="resources"/>
+  </static-paths>
+  <content-types>
+    <content-type>
+      <title>Cst</title>
+      <description></description>
+      <company name="" url="" logo="@PLUGIN_COMPANY_LOGO@"></company>
+    </content-type>
+  </content-types>
+  <content-generator
+    id="cst"
+    title="Cst"
+    type="cst"
+    class="pt.webdetails.cpk.CpkContentGenerator"/>
+  <!-- Menu entry -->
+  <menu-items>
+    <!--<menu-item id="cst_main" anchor="tools-submenu" label="Cst" command="content/cst/" type="MENU_ITEM" how="LAST_CHILD"/>-->
+  </menu-items>
+  <external-resources>
     <file context="mantle">api/repos/cst/resources/tabs.js</file>
   </external-resources>
 </plugin>

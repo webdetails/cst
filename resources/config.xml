@@ -3,10 +3,16 @@
   <rule match="USER" pattern="false" value="admin">
     <tab title="CDE Sample" tooltip="A CDE sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf-dd%3Acde_sample1.wcdf/generatedContent]]></tab>
   </rule>
-  <rule match="ROLE" pattern="false" value="Administrator">
-    <tab title="Report Sample1" order="0" fullScreen="false" tooltip="A Report Sample1" ><![CDATA[api/repos/%3Apublic%3ASteel%20Wheels%3AReports%3ATop%20Customers%20(report).prpt/viewer]]></tab>
+  <rule match="USER" pattern="false" value="suzy">
+    <tab title="CDE Sample" tooltip="A CDE sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf-dd%3Acde_sample1.wcdf/generatedContent]]></tab>
+  </rule>
+  <rule match="ROLE" pattern="false" value="Administrator" mode="launcher">
+    <tab title="Report Sample1" fullScreen="false" tooltip="A Report Sample1" ><![CDATA[api/repos/%3Apublic%3ASteel%20Wheels%3AReports%3ATop%20Customers%20(report).prpt/viewer]]></tab>
+  </rule>
+  <rule match="ROLE" pattern="false" value="Business Analyst">
+    <tab title="Report Sample2" order="0" fullScreen="false" tooltip="A Report Sample2" ><![CDATA[api/repos/%3Apublic%3ASteel%20Wheels%3AReports%3ATop%20Customers%20(report).prpt/viewer]]></tab>
   </rule>
   <rule match="DEFAULT">
-    <tab title="Report Sample2" order="1" fullScreen="false" tooltip="A Report Sample2"><![CDATA[api/repos/%3Apublic%3ASteel%20Wheels%3AReports%3AProduct%20Sales.prpt/viewer]]></tab>
+    <tab title="Report Sample3" order="1" fullScreen="false" tooltip="A Report Sample3"><![CDATA[api/repos/%3Apublic%3ASteel%20Wheels%3AReports%3AProduct%20Sales.prpt/viewer]]></tab>
   </rule>
 </cstConfig>

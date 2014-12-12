@@ -1,0 +1,948 @@
+{
+ "layout": {
+  "title": "variableInfo",
+  "rows": [
+   {
+    "id": "38843db2-ce34-9ee7-8005-1133cd0516b0",
+    "type": "LayoutResourceCode",
+    "typeDesc": "Resource",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "launcherJS",
+      "type": "Id"
+     },
+     {
+      "name": "resourceType",
+      "value": "Javascript",
+      "type": "Label"
+     },
+     {
+      "name": "resourceCode",
+      "value": "var cst = cst || {};\n\ncst.getFavorites = function(){\n    var favorites;\n        $.ajax({\n        url: Dashboards.getWebAppPath() + '/api/user-settings/favorites',\n        async: false,\n        type: 'GET',\n        mimeType: 'text/plain',\n        dataType: 'text',\n        success: function (data){\n            favorites = JSON.parse(data || \"[]\");\n        }\n    });\n    return favorites || [];\n};\ncst.setFavorites = function(favorites){\n    $.ajax({\n        url: Dashboards.getWebAppPath() + '/api/user-settings/favorites',\n        async: false,\n        type: 'POST',\n        data: JSON.stringify(favorites)\n    })\n};\ncst.addToFavorites = function(filename){\n    var favorites = cst.getFavorites();\n    favorites.push({\n        fullPath: filename,\n        title: filename.split('/').reverse()[0],\n        lastUse: 0\n    });\n    cst.setFavorites(favorites);\n};\ncst.removeFromFavorites = function(filename){\n    var favorites = cst.getFavorites();\n    favorites = _.filter(favorites, function(fav){\n        return fav.fullPath !== filename;\n    });\n    cst.setFavorites(favorites);\n};\n\n\ncst.URLToPath = function(url){\n    var path = url.split('api/repos/')[1].split('/')[0]\n    return Encoder.decodeRepositoryPath(unescape(path));\n};\ncst.pathToURL = function(fullPath){\n    var extension = fullPath.split('.').reverse()[0];\n    var action = {\n        'xanalyzer': 'viewer',\n        'prpt': 'viewer'\n    }[extension] || 'generatedContent';\n    return \"api/repos/\" + Encoder.encodeRepositoryPath(fullPath) + \"/\" + action;\n};\n    \ncst.getFileType = function(path){\n    return path.split('.').reverse()[0];\n}\n\ncst.getPUC = function getPUCMethod( methodName, frame ) {\n    if ( frame === undefined ) {\n\t\treturn undefined; \n\t}\n\n\t// if this frame has the method then assume this is the PUC frame\n\tif ( frame[methodName] !== undefined ) {\n\t\treturn frame[methodName];\n\t}\n\n\t// if reached topmost frame and did not find method\n\tif ( frame.parent === frame ) {\n\t\treturn undefined;\n\t}\n\t// else search ancestors\n\telse {\n\t\treturn getPUCMethod( methodName, frame.parent );\n\t}\n};\n       \n\n\nvar freeform = {\n    name: \"freeform\",\n    label: \"Freeform\",\n    defaults: {\n      run: function(tgt, st, opt) {}\n    },\n\n    init: function(){\n      $.fn.dataTableExt.oSort[this.name+'-asc'] = $.fn.dataTableExt.oSort['string-asc'];\n      $.fn.dataTableExt.oSort[this.name+'-desc'] = $.fn.dataTableExt.oSort['string-desc'];\n    },\n    \n    implementation: function(tgt, st, opt){\n      opt.run.call(this, tgt, st, opt);\n    }\n    \n  };\nDashboards.registerAddIn(\"Table\", \"colType\", new AddIn(freeform)); \n\nvar CONTEXT_PATH = Dashboards.getWebAppPath() + '/';\n ",
+      "type": "Resource"
+     }
+    ]
+   },
+   {
+    "id": "e00ae7e6-e69d-2d25-9e52-c7a86acc42f7",
+    "type": "LayoutResourceFile",
+    "typeDesc": "Resource",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "themeJS",
+      "type": "Id"
+     },
+     {
+      "name": "resourceFile",
+      "value": "../../../js/themes.js",
+      "type": "ResourceFile"
+     },
+     {
+      "name": "resourceType",
+      "value": "Javascript",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "891b7761-48fb-6564-3b3d-79623ca626be",
+    "type": "LayoutResourceCode",
+    "typeDesc": "Resource",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "launcherCSS",
+      "type": "Id"
+     },
+     {
+      "name": "resourceType",
+      "value": "Css",
+      "type": "Label"
+     },
+     {
+      "name": "resourceCode",
+      "value": "/* ==========================================================================\r\n  FONTS\r\n   =========================================================================== */\r\n\r\n@font-face {\r\n    font-family: 'Open Sans Light';\r\n    font-style: normal;\r\n    font-weight: 300;\r\n    src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');\r\n}\r\n@font-face {\r\n    font-family: 'Open Sans';\r\n    font-style: normal;\r\n    font-weight: 400;\r\n    src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');\r\n}\r\n@font-face {\r\n    font-family: 'Open Sans Semibold';\r\n    font-style: normal;\r\n    font-weight: 600;\r\n    src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff) format('woff');\r\n}\r\n@font-face {\r\n    font-family: 'Open Sans Bold';\r\n    font-style: normal;\r\n    font-weight: 700;\r\n    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');\r\n}\r\n@font-face {\r\n    font-family: 'Gudea';\r\n    font-style: normal;\r\n    font-weight: 400;\r\n    src: local('Gudea'), url('http://themes.googleusercontent.com/static/fonts/gudea/v1/kfCeUiT0HGXHQC8YVeaKy6CWcynf_cDxXwCLxiixG1c.woff') format('woff');\r\n}\r\n\r\n\r\n/* =============================================================================\r\n   Style Resets\r\n   ========================================================================== */\r\n\r\n.panel-default,\r\n.panel-default > .panel-heading{\r\n    background-color: #ffffff;\r\n    border-color: #CCDEE9;\r\n    border-radius: 0;\r\n} \r\n\r\n.panel-default {\r\n    box-shadow: none;\r\n    -moz-box-shadow: none;\r\n    -webkit-box-shadow: none;\r\n} \r\n\r\n\r\n\r\n/* =============================================================================\r\n   Custom\r\n   ========================================================================== */\r\n\r\n\r\n.mainContent{\r\n    padding: 40px 10px;\r\n}\r\n\r\n.dataTables_wrapper {\r\n    overflow-y: auto;\r\n    border: 1px solid #CCDEE9;\r\n    max-height: 330px;\r\n}\r\n\r\n.infoText {\r\n    padding: 0 0 0 20px;\r\n}\r\n\r\n.highlight{\r\n    color: #005CA7;\r\n}\r\n\r\n.cstTable {\r\n    padding: 20px 20px 7px 20px;\r\n}\r\n.cstTable thead tr {\r\n    display: none;\r\n}\r\n\r\n.cstTable tbody tr:hover {\r\n    background-color: #DCE7ED;\r\n    cursor: pointer;\r\n    color: #26363d;\r\n}\r\n\r\n.cstTable table.dataTable.compact tbody td {\r\n    padding: 7px 5px;\r\n}\r\n.cstTable tbody td{\r\n    border-bottom: 1px solid #CCDEE9;\r\n}\r\n.cstTable tbody tr:last-child td {\r\n    border-bottom: none;\r\n}\r\n.cstTable tbody tr:first-child td{\r\n    border-top: none;\r\n}\r\n.cstTable tbody tr td:first-child{\r\n    border-left: none;\r\n}\r\n.cstTable tbody tr td:last-child{\r\n    border-right: none;\r\n}\r\n\r\n.cstTable .column2{\r\n    width:32px;\r\n}\r\n.cstTable .freeform div{\r\n    float: right;\r\n}\r\n\r\n.aboutText{\r\n    float: right;\r\n    font-size: 11px;\r\n    padding-right: 15px;\r\n    margin-top: -10px;\r\n}\r\n\r\n.aboutText a,\r\n.aboutText a:link,\r\n.aboutText a:visited,\r\n.aboutText a:hover,\r\n.aboutText a:active, {\r\n    color: #005CA7;\r\n}\r\n\r\n.freeform .icon{\r\n    width: 20px;\r\n    height: 20px;\r\n}\r\n.column0.freeform{\r\n    width: 30px;\r\n}\r\n\r\n\r\n/*\r\n.fileIcon.wcdf{\r\n    background: url('../../../content/common-ui/resources/themes/images/cde_32.png') no-repeat;\r\n}\r\n.fileIcon.cda{\r\n    background: url('../../../content/common-ui/resources/themes/images/cde_20.png') no-repeat;\r\n}\r\n.fileIcon.xaction{\r\n    background: url('../../../content/common-ui/resources/themes/images/file_action.png') no-repeat;    \r\n}\r\n.fileIcon.prpt{\r\n    background: url('../../../content/common-ui/resources/themes/images/file_prpt_report.png') no-repeat;    \r\n}\r\n*/ ",
+      "type": "Resource"
+     }
+    ]
+   },
+   {
+    "id": "222be0ea-2830-c8e6-f45a-c41d9e1e720c",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "f7fd500c-edb1-3d62-b268-82858923cfa7",
+    "type": "LayoutBootstrapColumn",
+    "typeDesc": "Column",
+    "parent": "222be0ea-2830-c8e6-f45a-c41d9e1e720c",
+    "properties": [
+     {
+      "name": "name",
+      "value": "mainContent",
+      "type": "Id"
+     },
+     {
+      "name": "bootstrapExtraSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapMedium",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapLarge",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapCssClass",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "mainContent",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "d1031add-b304-f801-714a-b83039c60161",
+    "type": "BootstrapPanel",
+    "typeDesc": "Bootstrap Panel",
+    "parent": "f7fd500c-edb1-3d62-b268-82858923cfa7",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapPanelStyle",
+      "value": "panel-default",
+      "type": "bootstrapPanelStyleCustom"
+     }
+    ]
+   },
+   {
+    "id": "e92a33f1-c654-804f-be3b-9521dd8ba83f",
+    "type": "BootstrapPanelHeader",
+    "typeDesc": "Panel Header",
+    "parent": "d1031add-b304-f801-714a-b83039c60161",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "ace0b0ec-ad9f-1393-601c-34118c3d1ca1",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "e92a33f1-c654-804f-be3b-9521dd8ba83f",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "a006794e-c52c-0b7e-83b8-f3ec05257a08",
+    "type": "LayoutBootstrapColumn",
+    "typeDesc": "Column",
+    "parent": "ace0b0ec-ad9f-1393-601c-34118c3d1ca1",
+    "properties": [
+     {
+      "name": "name",
+      "value": "infoText",
+      "type": "Id"
+     },
+     {
+      "name": "bootstrapExtraSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapMedium",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapLarge",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapCssClass",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "infoText",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "335fde70-66c2-fb87-dbcd-69ce76571577",
+    "type": "BootstrapPanelBody",
+    "typeDesc": "Panel Body",
+    "parent": "d1031add-b304-f801-714a-b83039c60161",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "bde15ab8-9ca9-5454-6b82-e1c54c9e18d1",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "335fde70-66c2-fb87-dbcd-69ce76571577",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "146e4d10-a8c2-d4fe-554b-59ce40d60420",
+    "type": "LayoutBootstrapColumn",
+    "typeDesc": "Column",
+    "parent": "bde15ab8-9ca9-5454-6b82-e1c54c9e18d1",
+    "properties": [
+     {
+      "name": "name",
+      "value": "tableBodyObj",
+      "type": "Id"
+     },
+     {
+      "name": "bootstrapExtraSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapSmall",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapMedium",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapLarge",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "bootstrapCssClass",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "cstTable",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "4cd29792-01bd-3de0-925c-0a1cc16bf95c",
+    "type": "BootstrapPanelFooter",
+    "typeDesc": "Panel Footer",
+    "parent": "d1031add-b304-f801-714a-b83039c60161",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "hidden",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "fd01dcdf-8059-e9c8-d17a-2a92d0592515",
+    "type": "LayoutRow",
+    "typeDesc": "Row",
+    "parent": "f7fd500c-edb1-3d62-b268-82858923cfa7",
+    "properties": [
+     {
+      "name": "name",
+      "value": "creditsRow",
+      "type": "Id"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "creditsRow",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "9003804b-9192-ca17-1c4d-4c8630aaabc0",
+    "type": "LayoutColumn",
+    "typeDesc": "Column",
+    "parent": "fd01dcdf-8059-e9c8-d17a-2a92d0592515",
+    "properties": [
+     {
+      "name": "name",
+      "value": "",
+      "type": "Id"
+     },
+     {
+      "name": "columnSpan",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "columnPrepend",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "columnAppend",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "columnPrependTop",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "columnAppendBottom",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "columnBorder",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "columnBigBorder",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "height",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "backgroundColor",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "roundCorners",
+      "value": "",
+      "type": "RoundCorners"
+     },
+     {
+      "name": "textAlign",
+      "value": "",
+      "type": "TextAlign"
+     },
+     {
+      "name": "cssClass",
+      "value": "",
+      "type": "String"
+     }
+    ]
+   },
+   {
+    "id": "a008e824-1e42-05bc-58ac-4ec5945e5f94",
+    "type": "LayoutHtml",
+    "typeDesc": "Html",
+    "parent": "9003804b-9192-ca17-1c4d-4c8630aaabc0",
+    "properties": [
+     {
+      "name": "name",
+      "value": "aboutText",
+      "type": "Id"
+     },
+     {
+      "name": "html",
+      "value": "<a href=\"http://www.webdetails.pt/ctools/cst.html\" target=\"_blank\">About CST launcher</a> ",
+      "type": "Html"
+     },
+     {
+      "name": "fontSize",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "color",
+      "value": "",
+      "type": "Color"
+     },
+     {
+      "name": "cssClass",
+      "value": "aboutText",
+      "type": "String"
+     }
+    ]
+   }
+  ]
+ },
+ "components": {
+  "rows": [
+   {
+    "id": "OTHERCOMPONENTS",
+    "name": "Others",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "Others",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "b783f285-fa8f-dccd-ca89-fa79af512a87",
+    "type": "ComponentsTable",
+    "typeDesc": "table Component",
+    "parent": "OTHERCOMPONENTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "tableC",
+      "type": "Id"
+     },
+     {
+      "name": "expandContainerObject",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "listeners",
+      "value": "['${p:refreshEvent}']",
+      "type": "Listeners"
+     },
+     {
+      "name": "oLanguage",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "language",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "colFormats",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "colWidths",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "colHeaders",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "parameters",
+      "value": "[]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "expandParameters",
+      "value": "[]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "colSortable",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "colTypes",
+      "value": "[\"freeform\",\"string\",\"hidden\",\"freeform\",\"hidden\"]",
+      "type": "colTypesCustom"
+     },
+     {
+      "name": "paginate",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "lengthChange",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "filter",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "info",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "sort",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "expandOnClick",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "displayLength",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "colSearchable",
+      "value": "[]",
+      "type": "Array"
+     },
+     {
+      "name": "drawCallback",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "dataSource",
+      "value": "readConfigDS",
+      "type": "Datasource"
+     },
+     {
+      "name": "sDom",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "sortBy",
+      "value": "[]",
+      "type": "SortByArray"
+     },
+     {
+      "name": "refreshPeriod",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "priority",
+      "value": 5,
+      "type": "Integer"
+     },
+     {
+      "name": "tableStyle",
+      "value": "classic",
+      "type": "TableStyle"
+     },
+     {
+      "name": "paginationType",
+      "value": "simple_numbers",
+      "type": "PaginationType"
+     },
+     {
+      "name": "htmlObject",
+      "value": "${p:tableBodyObj}",
+      "type": "HtmlObject"
+     },
+     {
+      "name": "executeAtStart",
+      "value": "true",
+      "type": "Boolean"
+     },
+     {
+      "name": "paginateServerside",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "preExecution",
+      "value": "function f(){\n    this.setAddInOptions('colType', 'freeform',{\n        run: function(tgt, st, opt) {      \n            if (st.colIdx == 0){\n                $(tgt).empty().html([\n                    '<div class=\"body\">',\n                    '  <div class=\"file\">',\n                    '    <div class=\"icon ' + st.value +'\" />',\n                    '  </div>',\n                    '</div>'\n                    ].join('')\n                ).addClass('fileBrowserColumn');\n            } else {\n                $(tgt).empty().html(\n                    $('<div />')\n                        .toggleClass('favorite-on', st.value)\n                        .toggleClass('favorite-off', !st.value)\n                ).parent().mouseenter(function(){\n                    $(this).toggleClass('pentaho-listitem-hover', true)\n                }).mouseleave(function(){\n                    $(this).toggleClass('pentaho-listitem-hover', false)\n                });\n            }\n        }\n    });\n    \n} ",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postFetch",
+      "value": "function f(data){\n    var idx = {\n        label: 0,\n        url: 3\n    };\n    var idxs = [idx.label, idx.url]\n    \n\n    data.resultset = _.map(data.resultset, function(row){\n        var newRow = _.map(idxs, function(colIdx){\n            return row[colIdx];\n        });\n\n        newRow.push(false);\n        var path = cst.URLToPath(row[idx.url]);\n        newRow.push(path);\n        \n        var fileType = cst.getFileType(path);\n        newRow.unshift(fileType);\n        \n        return newRow;\n    });\n\n    var favorites = cst.getFavorites();\n    var rowsFavorites = _.map(favorites, function(obj){\n        return [cst.getFileType(obj.fullPath), obj.title, cst.pathToURL(obj.fullPath), true, obj.fullPath]\n    });\n    paths = _.pluck(favorites, 'fullPath');\n    _.each(data.resultset, function(row){\n        if (_.contains(paths, row[3])){\n            row[2] = true;        \n        }\n    })\n\n    // resultset = config.xml + favorites\n    var resultset = _.union(data.resultset, rowsFavorites)\n    \n    groupedRows = _.groupBy(resultset, function(row){\n        return row[0]; //fullPath\n    });\n    data.resultset = _.map(groupedRows, function(rows, key){\n        var row = rows[0];\n        row[3] = _.any(_.pluck(rows, 3));\n        return row;\n    });\n    \n    data.metadata = _.map(idxs, function(colIdx, k){\n        var metadata = data.metadata[colIdx];\n        return metadata;\n    });\n    data.metadata.unshift({\n        colName: \"Icon\",\n        colType: \"string\"\n    });\n    data.metadata.push({\n        colName: \"Favorite\",\n        colType: \"Boolean\"\n    });\n    data.metadata.push({\n        colName: \"fullPath\",\n        colType: \"string\"\n    });\n    \n    //Update colIdx\n    _.each(data.metadata, function(obj, idx){\n        obj.colIdx = idx;\n    });\n\n\n    $('#infoText').html(Mustache.render([\n        'You have <span class=\"highlight\">{{nTabs}}</span> available tabs.'\n        ].join(''), {\n        nTabs: data.resultset.length\n    }));\n    return data;\n} ",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postExecution",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "preChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "postChange",
+      "value": "",
+      "type": "JavaScript"
+     },
+     {
+      "name": "tooltip",
+      "value": "",
+      "type": "Html"
+     },
+     {
+      "name": "extraOptions",
+      "value": "[]",
+      "type": "OptionArray"
+     },
+     {
+      "name": "clickAction",
+      "value": "function f(st){\n    \n    var idx = {\n        url: 2,\n        name: 3,\n        filePath: 4\n    };\n    \n    switch (st.colIdx){\n        case idx.name:\n            if (st.value){\n                cst.removeFromFavorites(st.tableData[st.rowIdx][idx.filePath]);\n            } else {\n                cst.addToFavorites(st.tableData[st.rowIdx][idx.filePath]);\n            }\n            Dashboards.fireChange('${p:refreshEvent}', $.now());\n            break;\n\n        default:\n            var url = Dashboards.getWebAppPath() + '/' + st.tableData[st.rowIdx][idx.url];\n            \n            //Verify if we are inside PUC\n            var pucOpenTab = cst.getPUC( 'mantle_openTab', window );\n            if ( pucOpenTab ) {\n                var name = st.value,\n                title = st.value;\n                pucOpenTab( name, title, url );\n            }\n            else {\n                window.open( url );\n            }\n            \n            \n    }\n} ",
+      "type": "JavaScript"
+     }
+    ]
+   },
+   {
+    "id": "GENERIC",
+    "name": "Generic",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "Generic",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "627e76f5-214b-8b96-871e-ab494b554df7",
+    "type": "ComponentsParameter",
+    "typeDesc": "Simple parameter",
+    "parent": "GENERIC",
+    "properties": [
+     {
+      "name": "name",
+      "value": "refreshEvent",
+      "type": "Id"
+     },
+     {
+      "name": "propertyValue",
+      "value": "",
+      "type": "String"
+     },
+     {
+      "name": "parameterViewRole",
+      "value": "unused",
+      "type": "parameterViewRoleCustom"
+     },
+     {
+      "name": "bookmarkable",
+      "value": "false",
+      "type": "Boolean"
+     }
+    ]
+   }
+  ]
+ },
+ "datasources": {
+  "rows": [
+   {
+    "id": "CST_CPKENDPOINTS",
+    "name": "CST Endpoints",
+    "type": "Label",
+    "typeDesc": "<i>Group</i>",
+    "parent": "UnIqEiD",
+    "properties": [
+     {
+      "name": "Group",
+      "value": "CST Endpoints",
+      "type": "Label"
+     }
+    ]
+   },
+   {
+    "id": "408e109c-a11c-d43d-8308-1935649ef8e5",
+    "type": "Componentscst_readConfig_CPKENDPOINT",
+    "typeDesc": "readConfig Endpoint",
+    "parent": "CST_CPKENDPOINTS",
+    "properties": [
+     {
+      "name": "name",
+      "value": "readConfigDS",
+      "type": "Id"
+     },
+     {
+      "name": "stepName",
+      "value": "OUTPUT",
+      "type": "String"
+     },
+     {
+      "name": "kettleOutput",
+      "value": "Json",
+      "type": "kettleOutputCustom"
+     }
+    ],
+    "meta": "CPK",
+    "meta_pluginId": "cst",
+    "meta_endpoint": "readConfig"
+   }
+  ]
+ },
+ "filename": "/system/cst/dashboards/launcher.cdfde"
+}
