@@ -113,7 +113,7 @@
       <yloc>108</yloc>
       </entry>
     <entry>
-      <name>_readConfigFromFile</name>
+      <name>readConfig</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -210,7 +210,7 @@
     </hop>
     <hop>
       <from>LoadTabs check</from>
-      <to>_readConfigFromFile</to>
+      <to>readConfig</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -227,7 +227,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>_readConfigFromFile</from>
+      <from>readConfig</from>
       <to>_setSessionVariable</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
