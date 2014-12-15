@@ -6,7 +6,7 @@
     <small_img>http://www.webdetails.pt/ficheiros/cst.png</small_img>
     <name>Community Startup Tabs</name>
     <category>
-        <name>Administration</name>
+        <name>Admin</name>
         <parent>
             <name>Apps</name>
         </parent>
@@ -33,13 +33,12 @@ A landing tab can optionally be presented, which can be used to any of the prede
 
         <version>
             <branch>STABLE</branch>
-            <version>14.12.10</version>
+            <version>14.12.10.1</version>
             <name>Stable</name>
             <package_url>
-              http://www.webdetails.pt/ficheiros/cst/14.12.10/cst-14.12.10.zip
+              http://www.webdetails.pt/ficheiros/cst/14.12.10.1/cst-14.12.10.1.zip
             </package_url>
             <description>Stable Release</description>
-            <build_id/>
             <min_parent_version>5.0</min_parent_version>
             <development_stage>
                 <lane>Community</lane>
