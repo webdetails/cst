@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
 <cstConfig>
   <rule match="USER" pattern="false" value="admin">
-    <tab title="CDE Sample" tooltip="A CDE sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf-dd%3Acde_sample1.wcdf/generatedContent]]></tab>
+    <tab title="Sample CDA query for user admin" fullScreen="false" tooltip="A CDA sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf%3A20-samples%3Aheatgrid%3Acde_sample1.cda/generatedContent]]></tab>
   </rule>
   <rule match="USER" pattern="false" value="suzy">
-    <tab title="CDE Sample" tooltip="A CDE sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf-dd%3Acde_sample1.wcdf/generatedContent]]></tab>
+    <tab title="Sample CDE dashboard for user suzy" tooltip="A CDE sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf-dd%3Acde_sample1.wcdf/generatedContent]]></tab>
+    <tab title="Sample CDA query for user suzy" fullScreen="false" tooltip="A CDA sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf%3A20-samples%3Aheatgrid%3Acde_sample1.cda/generatedContent]]></tab>
   </rule>
   <rule match="ROLE" pattern="false" value="Administrator" mode="launcher">
-    <tab title="Report Sample1" fullScreen="false" tooltip="A Report Sample1" ><![CDATA[api/repos/%3Apublic%3ASteel%20Wheels%3AReports%3ATop%20Customers%20(report).prpt/viewer]]></tab>
+    <tab title="Sample CDF dashboard for Administrators" fullScreen="false" tooltip="A CDF sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf%3Astart_here.xcdf/generatedContent]]></tab>
   </rule>
-  <rule match="ROLE" pattern="false" value="Business Analyst">
-    <tab title="Report Sample2" order="0" fullScreen="false" tooltip="A Report Sample2" ><![CDATA[api/repos/%3Apublic%3ASteel%20Wheels%3AReports%3ATop%20Customers%20(report).prpt/viewer]]></tab>
+  <rule match="ROLE" pattern="false" value="Power User">
+    <tab title="Sample CDF dashboard for Power Users" order="1" fullScreen="false" tooltip="A CDF sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf%3Astart_here.xcdf/generatedContent]]></tab>
   </rule>
   <rule match="DEFAULT">
-    <tab title="Report Sample3" order="1" fullScreen="false" tooltip="A Report Sample3"><![CDATA[api/repos/%3Apublic%3ASteel%20Wheels%3AReports%3AProduct%20Sales.prpt/viewer]]></tab>
+    <tab title="Sample CDF dashboard" order="1" fullScreen="false" tooltip="A CDF sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf%3Astart_here.xcdf/generatedContent]]></tab>
   </rule>
 </cstConfig>

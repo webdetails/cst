@@ -32,7 +32,7 @@ $(window).load(function(){
       dataType: "json",
       success: function(data){
         if(data.resultset){
-          var mode = _.uniq(_.map(data.resultset, function(row){
+          var mode = $.unique($.map(data.resultset, function(row){
             return row[4];
           }));
           //console.log("CST: " + JSON.stringify(mode));
