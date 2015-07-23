@@ -14,14 +14,14 @@
       "type": "Id"
      },
      {
-      "name": "resourceType",
-      "value": "Javascript",
-      "type": "Label"
-     },
-     {
       "name": "resourceCode",
       "value": "var cst = cst || {};\n\ncst.getFavorites = function(){\n    var favorites;\n        $.ajax({\n        url: Dashboards.getWebAppPath() + '/api/user-settings/favorites',\n        async: false,\n        type: 'GET',\n        mimeType: 'text/plain',\n        dataType: 'text',\n        success: function (data){\n            favorites = JSON.parse(data || \"[]\");\n        }\n    });\n    return favorites || [];\n};\ncst.setFavorites = function(favorites){\n    $.ajax({\n        url: Dashboards.getWebAppPath() + '/api/user-settings/favorites',\n        async: false,\n        type: 'POST',\n        data: JSON.stringify(favorites)\n    })\n};\ncst.addToFavorites = function(filename){\n    var favorites = cst.getFavorites();\n    favorites.push({\n        fullPath: filename,\n        title: filename.split('/').reverse()[0],\n        lastUse: 0\n    });\n    cst.setFavorites(favorites);\n};\ncst.removeFromFavorites = function(filename){\n    var favorites = cst.getFavorites();\n    favorites = _.filter(favorites, function(fav){\n        return fav.fullPath !== filename;\n    });\n    cst.setFavorites(favorites);\n};\n\n\ncst.URLToPath = function(url){\n    var path = url.split('api/repos/')[1].split('/')[0]\n    return Encoder.decodeRepositoryPath(unescape(path));\n};\ncst.pathToURL = function(fullPath){\n    var extension = fullPath.split('.').reverse()[0];\n    var action = {\n        'xanalyzer': 'viewer',\n        'prpt': 'viewer'\n    }[extension] || 'generatedContent';\n    return \"api/repos/\" + Encoder.encodeRepositoryPath(fullPath) + \"/\" + action;\n};\n    \ncst.getFileType = function(path){\n    return path.split('.').reverse()[0];\n}\n\ncst.getPUC = function getPUCMethod( methodName, frame ) {\n    if ( frame === undefined ) {\n\t\treturn undefined; \n\t}\n\n\t// if this frame has the method then assume this is the PUC frame\n\tif ( frame[methodName] !== undefined ) {\n\t\treturn frame[methodName];\n\t}\n\n\t// if reached topmost frame and did not find method\n\tif ( frame.parent === frame ) {\n\t\treturn undefined;\n\t}\n\t// else search ancestors\n\telse {\n\t\treturn getPUCMethod( methodName, frame.parent );\n\t}\n};\n       \n\n\nvar freeform = {\n    name: \"freeform\",\n    label: \"Freeform\",\n    defaults: {\n      run: function(tgt, st, opt) {}\n    },\n\n    init: function(){\n      $.fn.dataTableExt.oSort[this.name+'-asc'] = $.fn.dataTableExt.oSort['string-asc'];\n      $.fn.dataTableExt.oSort[this.name+'-desc'] = $.fn.dataTableExt.oSort['string-desc'];\n    },\n    \n    implementation: function(tgt, st, opt){\n      opt.run.call(this, tgt, st, opt);\n    }\n    \n  };\nDashboards.registerAddIn(\"Table\", \"colType\", new AddIn(freeform)); \n\nvar CONTEXT_PATH = Dashboards.getWebAppPath() + '/';\n ",
       "type": "Resource"
+     },
+     {
+      "name": "resourceType",
+      "value": "Javascript",
+      "type": "Label"
      }
     ]
    },
@@ -60,14 +60,14 @@
       "type": "Id"
      },
      {
-      "name": "resourceType",
-      "value": "Css",
-      "type": "Label"
-     },
-     {
       "name": "resourceCode",
       "value": "/* ==========================================================================\r\n  FONTS\r\n   =========================================================================== */\r\n\r\n@font-face {\r\n    font-family: 'Open Sans Light';\r\n    font-style: normal;\r\n    font-weight: 300;\r\n    src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');\r\n}\r\n@font-face {\r\n    font-family: 'Open Sans';\r\n    font-style: normal;\r\n    font-weight: 400;\r\n    src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');\r\n}\r\n@font-face {\r\n    font-family: 'Open Sans Semibold';\r\n    font-style: normal;\r\n    font-weight: 600;\r\n    src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff) format('woff');\r\n}\r\n@font-face {\r\n    font-family: 'Open Sans Bold';\r\n    font-style: normal;\r\n    font-weight: 700;\r\n    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');\r\n}\r\n@font-face {\r\n    font-family: 'Gudea';\r\n    font-style: normal;\r\n    font-weight: 400;\r\n    src: local('Gudea'), url('http://themes.googleusercontent.com/static/fonts/gudea/v1/kfCeUiT0HGXHQC8YVeaKy6CWcynf_cDxXwCLxiixG1c.woff') format('woff');\r\n}\r\n\r\n\r\n/* =============================================================================\r\n   Style Resets\r\n   ========================================================================== */\r\n\r\n.panel-default,\r\n.panel-default > .panel-heading{\r\n    background-color: #ffffff;\r\n    border-color: #CCDEE9;\r\n    border-radius: 0;\r\n} \r\n\r\n.panel-default {\r\n    box-shadow: none;\r\n    -moz-box-shadow: none;\r\n    -webkit-box-shadow: none;\r\n} \r\n\r\n\r\n\r\n/* =============================================================================\r\n   Custom\r\n   ========================================================================== */\r\n\r\n\r\n.mainContent{\r\n    padding: 40px 10px;\r\n}\r\n\r\n.dataTables_wrapper {\r\n    overflow-y: auto;\r\n    border: 1px solid #CCDEE9;\r\n    max-height: 330px;\r\n}\r\n\r\n.infoText {\r\n    padding: 0 0 0 20px;\r\n}\r\n\r\n.highlight{\r\n    color: #005CA7;\r\n}\r\n\r\n.cstTable {\r\n    padding: 20px 20px 7px 20px;\r\n}\r\n.cstTable thead tr {\r\n    display: none;\r\n}\r\n\r\n.cstTable tbody tr:hover {\r\n    background-color: #DCE7ED;\r\n    cursor: pointer;\r\n    color: #26363d;\r\n}\r\n\r\n.cstTable table.dataTable.compact tbody td {\r\n    padding: 7px 5px;\r\n}\r\n.cstTable tbody td{\r\n    border-bottom: 1px solid #CCDEE9;\r\n}\r\n.cstTable tbody tr:last-child td {\r\n    border-bottom: none;\r\n}\r\n.cstTable tbody tr:first-child td{\r\n    border-top: none;\r\n}\r\n.cstTable tbody tr td:first-child{\r\n    border-left: none;\r\n}\r\n.cstTable tbody tr td:last-child{\r\n    border-right: none;\r\n}\r\n\r\n.cstTable .column2{\r\n    width:32px;\r\n}\r\n.cstTable .freeform div{\r\n    float: right;\r\n}\r\n\r\n.aboutText{\r\n    float: right;\r\n    font-size: 11px;\r\n    padding-right: 15px;\r\n    margin-top: -10px;\r\n}\r\n\r\n.aboutText a,\r\n.aboutText a:link,\r\n.aboutText a:visited,\r\n.aboutText a:hover,\r\n.aboutText a:active, {\r\n    color: #005CA7;\r\n}\r\n\r\n.freeform .icon{\r\n    width: 20px;\r\n    height: 20px;\r\n}\r\n.column0.freeform{\r\n    width: 30px;\r\n}\r\n\r\n\r\n/*\r\n.fileIcon.wcdf{\r\n    background: url('../../../content/common-ui/resources/themes/images/cde_32.png') no-repeat;\r\n}\r\n.fileIcon.cda{\r\n    background: url('../../../content/common-ui/resources/themes/images/cde_20.png') no-repeat;\r\n}\r\n.fileIcon.xaction{\r\n    background: url('../../../content/common-ui/resources/themes/images/file_action.png') no-repeat;    \r\n}\r\n.fileIcon.prpt{\r\n    background: url('../../../content/common-ui/resources/themes/images/file_prpt_report.png') no-repeat;    \r\n}\r\n*/ ",
       "type": "Resource"
+     },
+     {
+      "name": "resourceType",
+      "value": "Css",
+      "type": "Label"
      }
     ]
    },
@@ -690,24 +690,9 @@
       "type": "Array"
      },
      {
-      "name": "colWidths",
-      "value": "[]",
-      "type": "Array"
-     },
-     {
       "name": "colHeaders",
       "value": "[]",
       "type": "Array"
-     },
-     {
-      "name": "parameters",
-      "value": "[]",
-      "type": "ValuesArray"
-     },
-     {
-      "name": "expandParameters",
-      "value": "[]",
-      "type": "ValuesArray"
      },
      {
       "name": "colSortable",
@@ -720,12 +705,27 @@
       "type": "colTypesCustom"
      },
      {
-      "name": "paginate",
-      "value": "false",
-      "type": "Boolean"
+      "name": "colWidths",
+      "value": "[]",
+      "type": "Array"
      },
      {
-      "name": "lengthChange",
+      "name": "expandParameters",
+      "value": "[]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "parameters",
+      "value": "[]",
+      "type": "ValuesArray"
+     },
+     {
+      "name": "displayLength",
+      "value": "",
+      "type": "Integer"
+     },
+     {
+      "name": "expandOnClick",
       "value": "false",
       "type": "Boolean"
      },
@@ -740,19 +740,19 @@
       "type": "Boolean"
      },
      {
-      "name": "sort",
-      "value": "true",
-      "type": "Boolean"
-     },
-     {
-      "name": "expandOnClick",
+      "name": "lengthChange",
       "value": "false",
       "type": "Boolean"
      },
      {
-      "name": "displayLength",
-      "value": "",
-      "type": "Integer"
+      "name": "paginate",
+      "value": "false",
+      "type": "Boolean"
+     },
+     {
+      "name": "sort",
+      "value": "true",
+      "type": "Boolean"
      },
      {
       "name": "colSearchable",
@@ -780,24 +780,24 @@
       "type": "SortByArray"
      },
      {
-      "name": "refreshPeriod",
-      "value": "",
-      "type": "Integer"
-     },
-     {
       "name": "priority",
       "value": 5,
       "type": "Integer"
      },
      {
-      "name": "tableStyle",
-      "value": "classic",
-      "type": "TableStyle"
+      "name": "refreshPeriod",
+      "value": "",
+      "type": "Integer"
      },
      {
       "name": "paginationType",
       "value": "simple_numbers",
       "type": "PaginationType"
+     },
+     {
+      "name": "tableStyle",
+      "value": "classic",
+      "type": "TableStyle"
      },
      {
       "name": "htmlObject",
@@ -820,13 +820,13 @@
       "type": "JavaScript"
      },
      {
-      "name": "postFetch",
-      "value": "function f(data){\n    var idx = {\n        label: 0,\n        url: 3\n    };\n    var idxs = [idx.label, idx.url]\n    \n\n    data.resultset = _.map(data.resultset, function(row){\n        var newRow = _.map(idxs, function(colIdx){\n            return row[colIdx];\n        });\n\n        newRow.push(false);\n        var path = cst.URLToPath(row[idx.url]);\n        newRow.push(path);\n        \n        var fileType = cst.getFileType(path);\n        newRow.unshift(fileType);\n        \n        return newRow;\n    });\n\n    var favorites = cst.getFavorites();\n    var rowsFavorites = _.map(favorites, function(obj){\n        return [cst.getFileType(obj.fullPath), obj.title, cst.pathToURL(obj.fullPath), true, obj.fullPath]\n    });\n    paths = _.pluck(favorites, 'fullPath');\n    _.each(data.resultset, function(row){\n        if (_.contains(paths, row[3])){\n            row[2] = true;        \n        }\n    })\n\n    // resultset = config.xml + favorites\n    var resultset = _.union(data.resultset, rowsFavorites)\n    \n    groupedRows = _.groupBy(resultset, function(row){\n        return row[0]; //fullPath\n    });\n    data.resultset = _.map(groupedRows, function(rows, key){\n        var row = rows[0];\n        row[3] = _.any(_.pluck(rows, 3));\n        return row;\n    });\n    \n    data.metadata = _.map(idxs, function(colIdx, k){\n        var metadata = data.metadata[colIdx];\n        return metadata;\n    });\n    data.metadata.unshift({\n        colName: \"Icon\",\n        colType: \"string\"\n    });\n    data.metadata.push({\n        colName: \"Favorite\",\n        colType: \"Boolean\"\n    });\n    data.metadata.push({\n        colName: \"fullPath\",\n        colType: \"string\"\n    });\n    \n    //Update colIdx\n    _.each(data.metadata, function(obj, idx){\n        obj.colIdx = idx;\n    });\n\n\n    $('#infoText').html(Mustache.render([\n        'You have <span class=\"highlight\">{{nTabs}}</span> available tabs.'\n        ].join(''), {\n        nTabs: data.resultset.length\n    }));\n    return data;\n} ",
+      "name": "postExecution",
+      "value": "",
       "type": "JavaScript"
      },
      {
-      "name": "postExecution",
-      "value": "",
+      "name": "postFetch",
+      "value": "function f(data){\n    var favorites = cst.getFavorites();\n    var rowsFavorites = _.map(favorites, function(obj){\n        return [cst.getFileType(obj.fullPath), obj.title, cst.pathToURL(obj.fullPath), true, obj.fullPath]\n    });\n    var pathsOfFavorites = _.pluck(favorites, 'fullPath');\n\n    var idx = {\n        label: 0,\n        url: 3\n    };\n    var outIdx = {\n        icon: 0,\n        label: 1,\n        isFavorite: 3,\n        fullPath: 4,\n        fileType: 5\n    };\n    \n    var cstEntries = _.map(data.resultset, function(row){\n        var path = cst.URLToPath(row[idx.url]);\n        var fileType = cst.getFileType(path);\n        var isFavorite = _.contains(pathsOfFavorites, path);\n        return [fileType, row[idx.label], row[idx.url], isFavorite, path];\n    });\n\n    var pathsOfEntries = _.map(cstEntries, function(row){\n        return row[outIdx.fullPath];\n    });\n    \n    var unlistedFavorites = _.reject(rowsFavorites, function(row){\n        return _.contains(pathsOfEntries, row[outIdx.fullPath]);\n    });\n    \n    \n    // resultset = config.xml + favorites\n    var resultset = _.union(cstEntries, unlistedFavorites);\n\n    /*\n    data.resultset = _.sortBy(resultset, function(row, idx){\n        return row[outIdx.icon] + row[outIdx.label] + row[outIdx.fullPath];\n    });\n    */\n    //console.log('Entries:', data.resultset);\n\n    var metadataLabel = data.metadata[idx.label];\n    var metadataUrl = data.metadata[idx.url];\n    var metadataIcon = {\n        colName: \"Icon\",\n        colType: \"string\"\n    };\n    var metadataFavorite = {\n        colName: \"Favorite\",\n        colType: \"Boolean\"\n    };\n    var metadataFullPath = {\n        colName: \"fullPath\",\n        colType: \"string\"\n    };\n    \n    data.metadata = [\n        metadataIcon,\n        metadataLabel,\n        metadataUrl,\n        metadataFavorite,\n        metadataFullPath\n    ];\n    data.resultset = resultset;\n    data.queryInfo.totalRows = data.resultset.length + '';\n    \n    //Update colIdx\n    _.each(data.metadata, function(obj, idx){\n        obj.colIdx = idx;\n    });\n\n\n    $('#infoText').html(Mustache.render([\n        'You have <span class=\"highlight\">{{nTabs}}</span> available tabs.'\n        ].join(''), {\n        nTabs: data.resultset.length\n    }));\n    return data;\n} ",
       "type": "JavaScript"
      },
      {
@@ -840,14 +840,14 @@
       "type": "JavaScript"
      },
      {
-      "name": "tooltip",
-      "value": "",
-      "type": "Html"
-     },
-     {
       "name": "extraOptions",
       "value": "[]",
       "type": "OptionArray"
+     },
+     {
+      "name": "tooltip",
+      "value": "",
+      "type": "Html"
      },
      {
       "name": "clickAction",
