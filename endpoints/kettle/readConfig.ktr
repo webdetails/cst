@@ -95,6 +95,8 @@
   <created_date>2014&#x2f;07&#x2f;23 11&#x3a;04&#x3a;56.870</created_date>
   <modified_user>-</modified_user>
   <modified_date>2014&#x2f;07&#x2f;23 11&#x3a;04&#x3a;56.870</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
@@ -215,25 +217,11 @@
            <schema_name/>
            </partitioning>
     <fields>      <field>        <name>title</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
       </field>      <field>        <name>tooltip</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
       </field>      <field>        <name>fullscreen</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
       </field>      <field>        <name>link</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
       </field>      <field>        <name>minMode</name>
         <rename>mode</rename>
-        <length>-2</length>
-        <precision>-2</precision>
       </field>        <select_unspecified>N</select_unspecified>
     </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -560,9 +548,11 @@
     <rownum>N</rownum>
     <addresultfile>N</addresultfile>
     <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
     <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
     <doNotFailIfNoFile>Y</doNotFailIfNoFile>
     <ignoreMissingPath>N</ignoreMissingPath>
+    <defaultPathLeafToNull>N</defaultPathLeafToNull>
     <rownum_field/>
     <file>
       <name/>
@@ -574,7 +564,7 @@
     <fields>
       <field>
         <name>comparator</name>
-        <path>&#x24;.roles&#x5b;&#x3a;&#x5d;</path>
+        <path>&#x24;.roles&#x5b;&#x2a;&#x5d;</path>
         <type>String</type>
         <format/>
         <currency/>
