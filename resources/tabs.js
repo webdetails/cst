@@ -1,4 +1,4 @@
-$(window).load(function(){
+$(window).on('load', function(){
 
   //callback to open each tab after the PerspectivesLoadedEvent gets fired
   var callback = function(args) {
@@ -52,7 +52,7 @@ $(window).load(function(){
               }
             });
           }
-          $($(".pentaho-tab-deck-panel iframe")[0]).load(function(){
+          $($(".pentaho-tab-deck-panel iframe")[0]).on('load', function(){
             setTimeout(function(){
               $($(".pentaho-tab-bar .pentaho-tabWidget")[0]).mouseup();
             }, 1000);
