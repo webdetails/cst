@@ -1,4 +1,15 @@
 <?xml version="1.0"?>
+<!-- ******************************************************************************
+ *
+ * Pentaho
+ *
+ * Copyright (C) 2026 by Pentaho Canada Inc. : http://www.pentaho.com
+ *
+ * Use of this software is governed by the Business Source License included
+ * in the LICENSE.TXT file.
+ *
+ * Change Date: 2030-06-15
+ ******************************************************************************* -->
 <cstConfig>
   <rule match="USER" pattern="false" value="admin">
     <tab title="Sample CDA query for user admin" fullScreen="false" tooltip="A CDA sample"><![CDATA[api/repos/%3Apublic%3Aplugin-samples%3Apentaho-cdf-dd%3Acde_sample1.cda/generatedContent]]></tab>
